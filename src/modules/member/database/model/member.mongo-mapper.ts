@@ -15,7 +15,7 @@ export class MemberMongoMapper extends DbMapper<
     const props = entity.getPropsCopy();
 
     const mongoProps: MongoEntityProps<MemberMongoEntity> = {
-      // put field here
+      ...props,
     };
     return mongoProps;
   }

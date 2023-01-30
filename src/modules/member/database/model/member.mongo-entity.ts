@@ -6,7 +6,8 @@ import { BaseMongoEntity } from "src/core/base-classes/infra/mongo-entity.base";
 export class MemberMongoEntity extends BaseMongoEntity<
   typeof MemberMongoEntity
 > {
-  // Put your schema here
+  @Prop({ required: true, default: false })
+  is_online: boolean;
 }
 
 export const MemberSchema = SchemaFactory.createForClass(MemberMongoEntity);

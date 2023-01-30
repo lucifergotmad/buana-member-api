@@ -1,8 +1,7 @@
 import { AggregateRoot } from "src/core/base-classes/domain/aggregate-root";
 
 export interface MemberProps {
-  // put field interface here
-  name: string;
+  is_online: boolean;
 }
 
 export class MemberEntity extends AggregateRoot<MemberProps> {
