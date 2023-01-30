@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { BaseMongoEntity } from "src/core/base-classes/infra/mongo-entity.base";
 
-@Schema({ collection: "members" })
+@Schema({ collection: "tm_members" })
 export class MemberMongoEntity extends BaseMongoEntity<
   typeof MemberMongoEntity
 > {

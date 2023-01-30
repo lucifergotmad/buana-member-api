@@ -6,6 +6,7 @@ import { TransactionUtil } from "./modules/transaction/transaction.service";
 import { HashUtil } from "./modules/hash/hash.service";
 import { CacheUtil } from "./modules/cache/cache.service";
 import { GeneratorUtil } from "./modules/generator/generator.service";
+import { TransactionOnlineUtil } from "./modules/transaction-online/transaction-online.service";
 
 @Injectable()
 export class Utils implements IUtils {
@@ -15,5 +16,7 @@ export class Utils implements IUtils {
     readonly hash: HashUtil,
     readonly generator: GeneratorUtil,
     @Inject(ConnectionName.DB_PRIMARY) readonly transaction: TransactionUtil,
+    @Inject(ConnectionName.DB_ONLINE)
+    readonly transactionOnline: TransactionOnlineUtil,
   ) {}
 }

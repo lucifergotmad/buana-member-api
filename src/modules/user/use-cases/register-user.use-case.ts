@@ -9,6 +9,7 @@ import { UserEntity } from "../domain/user.entity";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { IRepositoryResponse } from "src/core/ports/interfaces/repository-response.interface";
+import { UserLevel } from "src/core/constants/app/user/user-level.const";
 
 @Injectable()
 export class RegisterUser
@@ -39,10 +40,7 @@ export class RegisterUser
         const userEntity = await UserEntity.create({
           password: user.password,
           username: user.username,
-          email: user.email,
-          weight: user.weight,
-          height: user.height,
-          age: user.age,
+          level: UserLevel.Owner,
         });
 
         result = await this.userRepository.save(userEntity);

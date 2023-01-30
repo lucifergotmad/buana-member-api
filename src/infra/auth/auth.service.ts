@@ -23,9 +23,7 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userRepository.findOne({
-      $or: [{ username }, { email: username }],
-    });
+    const user = await this.userRepository.findOne({ username });
 
     if (user) {
       const passwordMatch = await this.utils.hash.compare(
@@ -44,7 +42,7 @@ export class AuthService {
   async login(body: AuthLoginRequestDTO) {
     try {
       const user = await this.userRepository.findOne({
-        $or: [{ username: body.username }, { email: body.username }],
+        username: body.username,
       });
 
       const { access_token, refresh_token } = await this.registerToken(user);
