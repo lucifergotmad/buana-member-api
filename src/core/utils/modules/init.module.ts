@@ -1,7 +1,7 @@
 import { CacheModule, Module } from "@nestjs/common";
 import { ScheduleModule } from "@nestjs/schedule";
 import { EnvModule } from "src/infra/configs/env.module";
-import { MemberUseCaseModule } from "src/modules/member/use-cases/member.use-case.module";
+import { MemberRepositoryModule } from "src/modules/member/database/member.repository.module";
 import { CacheUtil } from "./cache/cache.service";
 import { DateUtil } from "./date/date.service";
 import { GeneratorUtil } from "./generator/generator.service";
@@ -14,7 +14,7 @@ import { transactionProvider } from "./transaction/transaction.provider";
     CacheModule.register(),
     ScheduleModule.forRoot(),
     EnvModule,
-    MemberUseCaseModule,
+    MemberRepositoryModule,
   ],
   providers: [
     CacheUtil,

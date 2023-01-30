@@ -30,7 +30,7 @@ export class CreateMember
 
       await session.withTransaction(async () => {
         const memberEntity = MemberEntity.create({
-          kode_member: "",
+          kode_member: await this.utils.generator.generateKodeMember(),
           no_identitas: request.no_identitas,
           tanggal_daftar: request.tanggal_daftar,
           tanggal_valid: request.tanggal_valid,
