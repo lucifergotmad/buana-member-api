@@ -22,4 +22,4 @@ export const memberRepositoryProviders: Provider[] = [
   },
 ];
 export const InjectMemberRepository = Inject(MemberProviderName.PRIMARY);
-export const InjectMemberRepository = Inject(MemberProviderName.PRIMARY);
+export const InjectMemberRepositoryOnline = Inject(MemberProviderName.ONLINE);

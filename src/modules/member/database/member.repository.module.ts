@@ -4,7 +4,7 @@ import { memberRepositoryProviders } from "./member.repository.provider";
 
 @Module({
   imports: memberEntityProviders,
-  providers: memberRepositoryProvider,
-  exports: memberRepositoryProvider,
+  providers: memberRepositoryProviders,
+  exports: memberRepositoryProviders,
 })
 export class MemberRepositoryModule {}

@@ -151,7 +151,7 @@
       " },",
       "];",
       "export const Inject<FTName | pascalcase>Repository = Inject(<FTName | pascalcase>ProviderName.PRIMARY);",
-      "export const Inject<FTName | pascalcase>Repository = Inject(<FTName | pascalcase>ProviderName.PRIMARY);"
+      "export const Inject<FTName | pascalcase>RepositoryOnline = Inject(<FTName | pascalcase>ProviderName.ONLINE);"
     ],
     "create-module-repository": [
       "import { Module } from '@nestjs/common';",
@@ -160,8 +160,8 @@
       "",
       "@Module({",
       "  imports: <FTName | camelcase>EntityProviders,",
-      "  providers: <FTName | camelcase>RepositoryProvider,",
-      "  exports: <FTName | camelcase>RepositoryProvider,",
+      "  providers: <FTName | camelcase>RepositoryProviders,",
+      "  exports: <FTName | camelcase>RepositoryProviders,",
       "})",
       "export class <FTName | pascalcase>RepositoryModule {}",
       ""
