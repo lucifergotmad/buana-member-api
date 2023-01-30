@@ -2,7 +2,9 @@ import { Body } from "@nestjs/common";
 import { ApiConflictResponse, ApiOkResponse } from "@nestjs/swagger";
 import { ControllerProperty } from "src/core/decorators/controller-decorators/class-decorators/controller-property.decorator";
 import { SecurePost } from "src/core/decorators/controller-decorators/class-decorators/secure-post.decorator";
+import { AuthUser } from "src/core/decorators/controller-decorators/param-decorators/auth-user.decorator";
 import { IdResponseDTO } from "src/interface-adapter/dtos/id.response.dto";
+import { UserMongoEntity } from "src/modules/user/database/model/user.mongo-entity";
 import { CreateMember } from "../use-cases/create-member.use-case";
 import { CreateMemberRequestDTO } from "./dtos/create-member.request.dto";
 
@@ -13,7 +15,10 @@ export class MemberController {
   @SecurePost()
   @ApiOkResponse({ type: IdResponseDTO })
   @ApiConflictResponse({ description: "Data already exists" })
-  save(@Body() body: CreateMemberRequestDTO) {
-    return this.createMember.execute(body);
+  save(
+    @Body() body: CreateMemberRequestDTO,
+    @AuthUser() user: Partial<UserMongoEntity>,
+  ) {
+    return this.createMember.injectDecodedToken(user).execute(body);
   }
 }

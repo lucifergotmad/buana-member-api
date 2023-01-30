@@ -1,4 +1,5 @@
 import { AggregateRoot } from "src/core/base-classes/domain/aggregate-root";
+import { IHistoryUser } from "src/interface-adapter/interfaces/history-user.interface";
 import { Agama } from "./value-objects/agama.value-object";
 import { Email } from "./value-objects/email.value-object";
 import { JenisKelamin } from "./value-objects/jenis-kelamin.value-object";
@@ -40,7 +41,7 @@ interface IDetailMemberProps {
   email?: Email;
   terima_email?: boolean;
 }
-export interface IMemberProps extends IDetailMemberProps {
+export interface IMemberProps extends IDetailMemberProps, IHistoryUser {
   kode_member: string;
   no_identitas: NomorIdentitas;
   tanggal_daftar: string;

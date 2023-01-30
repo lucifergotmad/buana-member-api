@@ -67,6 +67,7 @@ export class CreateMember
           telp_kantor: request?.telp_kantor,
           email: request?.email,
           terima_email: request?.terima_email,
+          created_by: this.user?.username,
           is_online: false,
         });
 
