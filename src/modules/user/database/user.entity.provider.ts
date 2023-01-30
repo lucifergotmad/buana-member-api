@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from "@nestjs/common";
+import { DynamicModule } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserConnectionName } from "src/core/constants/app/user/conn-name.const";
 import { ConnectionName } from "src/core/constants/database/connection-name.const";
