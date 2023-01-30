@@ -1,12 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { InjectConnection } from "@nestjs/mongoose";
 import { ClientSession, Connection } from "mongoose";
+import { ConnectionName } from "src/core/constants/database/connection-name.const";
 import { ITransactionUtil } from "./transaction.interface";
 
 @Injectable()
 export class TransactionUtil implements ITransactionUtil {
   constructor(
-    @InjectConnection()
+    @InjectConnection(ConnectionName.DB_PRIMARY)
     private readonly connection: Connection,
   ) {}
 

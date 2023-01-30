@@ -8,12 +8,21 @@ export const databaseProviders = [
   MongooseModule.forRootAsync({
     imports: [EnvModule],
     inject: [EnvService],
+    connectionName: ConnectionName.DB_PRIMARY,
     useFactory: (envService: EnvService) => ({
-      connectionName: ConnectionName.DB_PRIMARY,
       uri: envService.dbConnectionURI,
       dbName: envService.dbName,
       user: envService.dbUsername,
       pass: envService.dbPassword,
+      ...DB_OPTION,
+    }),
+  }),
+  MongooseModule.forRootAsync({
+    imports: [EnvModule],
+    inject: [EnvService],
+    connectionName: ConnectionName.DB_ONLINE,
+    useFactory: (envService: EnvService) => ({
+      uri: envService.dbConnectionURIOnline,
       ...DB_OPTION,
     }),
   }),

@@ -8,6 +8,6 @@ export const transactionProvider = [
     provide: ConnectionName.DB_PRIMARY,
     useFactory: (primaryConnection: Connection) =>
       new TransactionUtil(primaryConnection),
-    inject: [getConnectionToken()],
+    inject: [getConnectionToken(ConnectionName.DB_PRIMARY)],
   },
 ];

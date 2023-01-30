@@ -4,6 +4,7 @@ import { EnvKey } from "../../core/constants/env/env-keys.const";
 
 @Injectable()
 export class EnvService {
+  private readonly _dbConnectionURIOnline: string;
   private readonly _dbConnectionURI: string;
   private readonly _dbName: string;
   private readonly _dbUsername: string;
@@ -15,6 +16,9 @@ export class EnvService {
   private readonly _secure: boolean;
 
   constructor(private readonly configService: ConfigService) {
+    this._dbConnectionURIOnline = this.configService.get<string>(
+      EnvKey.DB_URI_ONLINE,
+    );
     this._dbConnectionURI = this.configService.get<string>(EnvKey.DB_URI);
     this._jwtSecretKey = this.configService.get<string>(EnvKey.JWT_KEY);
     this._jwtRefreshKey = this.configService.get<string>(
@@ -28,6 +32,10 @@ export class EnvService {
     this._jwtLimit = Number(
       this.configService.get<number>(EnvKey.JWT_LIMIT) || 1200,
     );
+  }
+
+  get dbConnectionURIOnline(): string {
+    return this._dbConnectionURIOnline;
   }
 
   get dbConnectionURI(): string {
