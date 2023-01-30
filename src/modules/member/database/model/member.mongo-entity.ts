@@ -6,10 +6,10 @@ import { BaseMongoEntity } from "src/core/base-classes/infra/mongo-entity.base";
 export class MemberMongoEntity extends BaseMongoEntity<
   typeof MemberMongoEntity
 > {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, index: 1 })
   kode_member: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, index: 1 })
   no_identitas: string;
 
   @Prop({ required: true })
@@ -30,7 +30,7 @@ export class MemberMongoEntity extends BaseMongoEntity<
   @Prop({ required: true })
   tanggal_lahir: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: 1 })
   tempat_lahir: string;
 
   @Prop({ required: true })
@@ -54,10 +54,10 @@ export class MemberMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   domisili?: string;
 
-  @Prop({ required: false })
+  @Prop({ required: false, index: 1 })
   status?: string;
 
-  @Prop({ required: false })
+  @Prop({ required: false, index: 1 })
   agama?: string;
 
   @Prop({ required: false })
@@ -111,8 +111,8 @@ export class MemberMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   terima_email?: boolean;
 
-  @Prop({ required: true, default: false })
-  is_online: boolean;
+  @Prop({ required: false, index: 1 })
+  is_online?: boolean;
 }
 
 export const MemberSchema = SchemaFactory.createForClass(MemberMongoEntity);

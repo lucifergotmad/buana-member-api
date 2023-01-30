@@ -45,7 +45,7 @@ export interface IMemberProps extends IDetailMemberProps {
   no_identitas: NomorIdentitas;
   tanggal_daftar: string;
   tanggal_valid: string;
-  is_online: boolean;
+  is_online?: boolean;
 }
 
 export interface MemberFactoryProps

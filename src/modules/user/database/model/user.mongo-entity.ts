@@ -19,7 +19,7 @@ export class UserMongoEntity extends BaseMongoEntity<typeof UserMongoEntity> {
   })
   level: string;
 
-  @Prop({ required: false, default: false })
+  @Prop({ required: false })
   is_online?: boolean;
 }
 
