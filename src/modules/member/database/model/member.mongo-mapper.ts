@@ -16,6 +16,15 @@ export class MemberMongoMapper extends DbMapper<
 
     const mongoProps: MongoEntityProps<MemberMongoEntity> = {
       ...props,
+      jenis_kelamin: props.jenis_kelamin.value,
+      email: props?.email.value,
+      status: props.status.value,
+      no_identitas: props.no_identitas.value,
+      no_hp: props.no_hp.value,
+      emergency_number: props?.emergency_number.value,
+      telp_rumah: props?.telp_rumah.value,
+      telp_kantor: props?.telp_kantor.value,
+      agama: props?.agama.value,
     };
     return mongoProps;
   }
