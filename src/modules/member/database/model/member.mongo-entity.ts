@@ -123,6 +123,9 @@ export class MemberMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   updated_at?: Date;
 
+  @Prop({ required: true, default: true })
+  status_active: boolean;
+
   @Prop({ required: false, index: 1 })
   is_online?: boolean;
 }

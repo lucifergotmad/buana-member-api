@@ -23,9 +23,7 @@ export class CreateMember
     super();
   }
 
-  public async execute(
-    request?: CreateMemberRequestDTO,
-  ): Promise<IdResponseDTO> {
+  async execute(request?: CreateMemberRequestDTO): Promise<IdResponseDTO> {
     const session = await this.utils.transaction.startTransaction();
     try {
       let result: IRepositoryResponse;
@@ -68,6 +66,7 @@ export class CreateMember
           email: request?.email,
           terima_email: request?.terima_email,
           created_by: this.user?.username,
+          status_active: true,
           is_online: false,
         });
 

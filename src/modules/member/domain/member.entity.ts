@@ -46,6 +46,7 @@ export interface IMemberProps extends IDetailMemberProps, IHistoryUser {
   no_identitas: NomorIdentitas;
   tanggal_daftar: string;
   tanggal_valid: string;
+  status_active: boolean;
   is_online?: boolean;
 }
 
