@@ -31,7 +31,6 @@ export class RegisterUser
       await session.withTransaction(async () => {
         await this.userRepository.findOneAndThrow(
           {
-            email: user.email,
             username: user.username,
           },
           "Username or Email are already use",
