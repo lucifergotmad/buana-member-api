@@ -20,7 +20,7 @@ export class UserMongoEntity extends BaseMongoEntity<typeof UserMongoEntity> {
   level: string;
 
   @Prop({ required: false, default: false })
-  is_online: boolean;
+  is_online?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserMongoEntity);
