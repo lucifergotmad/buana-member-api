@@ -9,6 +9,7 @@ import { ControllerProperty } from "src/core/decorators/controller-decorators/cl
 import { SecureDelete } from "src/core/decorators/controller-decorators/class-decorators/secure-delete.decorator";
 import { SecureGet } from "src/core/decorators/controller-decorators/class-decorators/secure-get.decorator";
 import { SecurePost } from "src/core/decorators/controller-decorators/class-decorators/secure-post.decorator";
+import { SecurePut } from "src/core/decorators/controller-decorators/class-decorators/secure-put.decorator";
 import { AuthUser } from "src/core/decorators/controller-decorators/param-decorators/auth-user.decorator";
 import { IdResponseDTO } from "src/interface-adapter/dtos/id.response.dto";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
@@ -17,14 +18,17 @@ import { CreateMember } from "../use-cases/create-member.use-case";
 import { DeleteMember } from "../use-cases/delete-member.use-case";
 import { FindMemberById } from "../use-cases/find-member-by-id.use-case";
 import { SearchMember } from "../use-cases/search-member.use-case";
+import { UpdateMember } from "../use-cases/update-member.use-case";
 import { CreateMemberRequestDTO } from "./dtos/create-member.request.dto";
 import { MemberResponseDTO } from "./dtos/member.response.dto";
 import { SearchMemberRequestDTO } from "./dtos/search-member.request.dto";
+import { UpdateMemberRequestDTO } from "./dtos/udpate-member.request.dto";
 
 @ControllerProperty("v1/members", "[Master] Members")
 export class MemberController {
   constructor(
     private readonly createMember: CreateMember,
+    private readonly updateMember: UpdateMember,
     private readonly deleteMember: DeleteMember,
     private readonly searchMember: SearchMember,
     private readonly findMemberById: FindMemberById,
@@ -59,6 +63,17 @@ export class MemberController {
   @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
   findOne(@Param("_id") _id: string) {
     return this.findMemberById.execute({ _id });
+  }
+
+  @SecurePut(":_id")
+  @ApiOkResponse({ type: MessageResponseDTO })
+  @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
+  update(
+    @Param("_id") _id: string,
+    @Body() body: UpdateMemberRequestDTO,
+    @AuthUser() user: Partial<UserMongoEntity>,
+  ) {
+    return this.updateMember.injectDecodedToken(user).execute({ _id, ...body });
   }
 
   @SecureDelete(":_id")
