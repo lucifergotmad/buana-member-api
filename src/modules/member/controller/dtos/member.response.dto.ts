@@ -1,4 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { MemberAgama } from "src/core/constants/app/member/agama.const";
+import { MemberJenisKelamin } from "src/core/constants/app/member/jenis-kelamin.const";
+import { MemberStatusMenikah } from "src/core/constants/app/member/status-menikah.const";
 import { IMemberResponse } from "src/interface-adapter/interfaces/member/member.response.interface";
 
 export class MemberResponseDTO implements IMemberResponse {
@@ -34,102 +37,105 @@ export class MemberResponseDTO implements IMemberResponse {
     this.email = props.email;
   }
 
-  @ApiProperty()
+  @ApiProperty({ example: "PLG0000001" })
   kode_member: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "3205354029100000" })
   no_identitas: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "2022-12-23" })
   tanggal_daftar: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "2023-01-23" })
   tanggal_valid: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Octyo Paswa Putra" })
   nama_lengkap: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Octyo" })
   nama_depan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Paswa Putra" })
   nama_belakang?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "2000-10-28" })
   tanggal_lahir: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Garut" })
   tempat_lahir: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Jl. Pembangungan Terus" })
   alamat: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "001/002" })
   rt_rw: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Baleendah" })
   kelurahan: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Bandung" })
   kota: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "081321832035" })
   no_hp: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "403185" })
   kode_pos?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Jl. Tetap Bangun" })
   domisili?: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: MemberStatusMenikah,
+    example: MemberStatusMenikah.BelumMenikah,
+  })
   status?: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: MemberAgama, example: MemberAgama.Islam })
   agama?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "SLTA" })
   pendidikan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "> 2000000" })
   penghasilan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "< 2000000" })
   pengeluaran?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 0 })
   jumlah_anak_pria?: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: 0 })
   jumlah_anak_wanita?: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Kuli Perusahaan" })
   pekerjaan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "PT. Bangun Tidur" })
   nama_perusahaan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Jl. Tidur Aja Ngantuk" })
   alamat_perusahaan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Bandung" })
   kota_perusahaan?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "Jasa" })
   bidang_usaha?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "082214773627" })
   emergency_number?: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: MemberJenisKelamin, example: MemberJenisKelamin.Pria })
   jenis_kelamin: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "0224167261" })
   telp_rumah?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "0224167263" })
   telp_kantor?: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: "lucifergotmad@gmail.com" })
   email?: string;
 }
