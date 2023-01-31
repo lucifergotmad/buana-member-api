@@ -1,5 +1,4 @@
 import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.const";
-import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-string.decorator";
 import { IsRequiredMixed } from "src/core/decorators/dto-decorators/required-mixed.decorator";
 import { IsRequiredNumber } from "src/core/decorators/dto-decorators/required-number.decorator";
 import { IsRequiredString } from "src/core/decorators/dto-decorators/required-string.decorator";
