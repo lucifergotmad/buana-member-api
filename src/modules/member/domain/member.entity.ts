@@ -5,6 +5,7 @@ import { Email } from "./value-objects/email.value-object";
 import { JenisKelamin } from "./value-objects/jenis-kelamin.value-object";
 import { NomorIdentitas } from "./value-objects/nomor-identitas.value-object";
 import { NomorTelepon } from "./value-objects/nomor-telepon.value-object";
+import { Pendidikan } from "./value-objects/pendidikan.value-object";
 import { RtRw } from "./value-objects/rt-rw.value-object";
 import { StatusMenikah } from "./value-objects/status-menikah.value-object";
 import { TeleponTetap } from "./value-objects/telepon-tetap.value-object";
@@ -24,7 +25,7 @@ interface IDetailMemberProps {
   domisili?: string;
   status?: StatusMenikah;
   agama?: Agama;
-  pendidikan?: string;
+  pendidikan?: Pendidikan;
   penghasilan?: string;
   pengeluaran?: string;
   jumlah_anak_pria?: number;
@@ -64,6 +65,7 @@ export interface MemberFactoryProps
     | "telp_kantor"
     | "agama"
     | "rt_rw"
+    | "pendidikan"
   > {
   no_identitas: string;
   jenis_kelamin: string;
@@ -75,6 +77,7 @@ export interface MemberFactoryProps
   telp_kantor: string;
   agama: string;
   rt_rw: string;
+  pendidikan: string;
 }
 
 export class MemberEntity extends AggregateRoot<IMemberProps> {
@@ -95,6 +98,7 @@ export class MemberEntity extends AggregateRoot<IMemberProps> {
       telp_kantor: new TeleponTetap(props.telp_kantor),
       agama: new Agama(props.agama),
       rt_rw: new RtRw(props.rt_rw),
+      pendidikan: new Pendidikan(props.pendidikan),
     });
   }
 }

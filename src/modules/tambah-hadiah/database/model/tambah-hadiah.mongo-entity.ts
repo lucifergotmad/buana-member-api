@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { BaseMongoEntity } from "src/core/base-classes/infra/mongo-entity.base";
 
-@Schema({ collection: "tambah-hadiahs" })
+@Schema({ collection: "tt_tambah_hadiahs" })
 export class TambahHadiahMongoEntity extends BaseMongoEntity<
   typeof TambahHadiahMongoEntity
 > {

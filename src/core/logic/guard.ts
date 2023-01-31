@@ -2,6 +2,7 @@ import { UserLevel } from "../constants/app/user/user-level.const";
 import { MemberJenisKelamin } from "../constants/app/member/jenis-kelamin.const";
 import { MemberStatusMenikah } from "../constants/app/member/status-menikah.const";
 import { MemberAgama } from "../constants/app/member/agama.const";
+import { MemberPendidikan } from "../constants/app/member/pendidikan.const";
 
 export class Guard {
   static isEmpty(value: unknown): boolean {
@@ -40,6 +41,10 @@ export class Guard {
 
   static isValidRTRW(value: string) {
     return /\d{3}\/\d{3}/s.test(value);
+  }
+
+  static isInvalidPendidikan(value: string) {
+    return !Object.values(MemberPendidikan).includes(value as MemberPendidikan);
   }
 
   static isDuplicate(value: any[]): boolean {

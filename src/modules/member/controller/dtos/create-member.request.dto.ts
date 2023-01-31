@@ -1,3 +1,7 @@
+import { MemberAgama } from "src/core/constants/app/member/agama.const";
+import { MemberJenisKelamin } from "src/core/constants/app/member/jenis-kelamin.const";
+import { MemberPendidikan } from "src/core/constants/app/member/pendidikan.const";
+import { MemberStatusMenikah } from "src/core/constants/app/member/status-menikah.const";
 import { IsOptionalBoolean } from "src/core/decorators/dto-decorators/optional-boolean.decorator";
 import { IsOptionalNumber } from "src/core/decorators/dto-decorators/optional-number.decorator";
 import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-string.decorator";
@@ -49,13 +53,22 @@ export class CreateMemberRequestDTO {
   @IsOptionalString({ example: "Jl. Tetap Bangun" })
   domisili?: string;
 
-  @IsOptionalString({ example: "Belum Menikah" })
+  @IsOptionalString({
+    example: MemberStatusMenikah.BelumMenikah,
+    description: Object.values(MemberStatusMenikah).join(","),
+  })
   status?: string;
 
-  @IsOptionalString({ example: "Islam" })
+  @IsOptionalString({
+    example: MemberAgama.Islam,
+    description: Object.values(MemberAgama).join(","),
+  })
   agama?: string;
 
-  @IsOptionalString({ example: "SLTA" })
+  @IsOptionalString({
+    example: MemberPendidikan.SarjanaS1,
+    description: Object.values(MemberPendidikan).join(","),
+  })
   pendidikan?: string;
 
   @IsOptionalString({ example: "> 2000000" })
@@ -88,7 +101,10 @@ export class CreateMemberRequestDTO {
   @IsOptionalString({ example: "082214773627" })
   emergency_number?: string;
 
-  @IsRequiredString({ example: "L" })
+  @IsRequiredString({
+    example: MemberJenisKelamin.Pria,
+    description: Object.values(MemberJenisKelamin).join(","),
+  })
   jenis_kelamin: string;
 
   @IsOptionalBoolean({ example: false })

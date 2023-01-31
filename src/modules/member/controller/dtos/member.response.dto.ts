@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { MemberAgama } from "src/core/constants/app/member/agama.const";
 import { MemberJenisKelamin } from "src/core/constants/app/member/jenis-kelamin.const";
+import { MemberPendidikan } from "src/core/constants/app/member/pendidikan.const";
 import { MemberStatusMenikah } from "src/core/constants/app/member/status-menikah.const";
 import { IMemberResponse } from "src/interface-adapter/interfaces/member/member.response.interface";
 
@@ -94,7 +95,7 @@ export class MemberResponseDTO implements IMemberResponse {
   @ApiProperty({ enum: MemberAgama, example: MemberAgama.Islam })
   agama?: string;
 
-  @ApiProperty({ example: "SLTA" })
+  @ApiProperty({ enum: MemberPendidikan, example: MemberPendidikan.SarjanaS1 })
   pendidikan?: string;
 
   @ApiProperty({ example: "> 2000000" })
