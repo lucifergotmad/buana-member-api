@@ -5,6 +5,7 @@ import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.c
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { Utils } from "src/core/utils/utils.service";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
+import { CreateStockHadiahCard } from "src/modules/stock-hadiah-card/use-cases/create-stock-hadiah-card.use-case";
 import {
   AddStockHadiahRequestDTO,
   DetailHadiahRequestDTO,
@@ -21,6 +22,7 @@ export class AddStockHadiah
   constructor(
     @InjectTambahHadiahRepository
     private readonly tambahHadiahRepository: TambahHadiahRepositoryPort,
+    private readonly createStockHadiahCard: CreateStockHadiahCard,
     private readonly utils: Utils,
   ) {
     super();
@@ -30,6 +32,7 @@ export class AddStockHadiah
     request?: AddStockHadiahRequestDTO,
   ): Promise<MessageResponseDTO> {
     const session = await this.utils.transaction.startTransaction();
+
     try {
       await session.withTransaction(async () => {
         const date = new Date();
@@ -48,6 +51,16 @@ export class AddStockHadiah
 
         await this.tambahHadiahRepository.save(tambahHadiahEntity, session);
         const groupedHadiah = this._groupDetailHadiah(request.detail_hadiah);
+
+        await this.createStockHadiahCard.injectDecodedToken(this?.user).execute(
+          {
+            no_tambah_hadiah: noTambahHadiah,
+            tanggal: this.utils.date.localDateString(date),
+            kategori: TipeTransaksi.TambahStockHadiah,
+            detail_hadiah: groupedHadiah,
+          },
+          session,
+        );
       });
 
       return new MessageResponseDTO("Success adding stock hadiah!");
