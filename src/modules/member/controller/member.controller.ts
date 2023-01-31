@@ -22,7 +22,7 @@ import { UpdateMember } from "../use-cases/update-member.use-case";
 import { CreateMemberRequestDTO } from "./dtos/create-member.request.dto";
 import { MemberResponseDTO } from "./dtos/member.response.dto";
 import { SearchMemberRequestDTO } from "./dtos/search-member.request.dto";
-import { UpdateMemberRequestDTO } from "./dtos/udpate-member.request.dto";
+import { UpdateMemberRequestDTO } from "./dtos/update-member.request.dto";
 
 @ControllerProperty("v1/members", "[Master] Members")
 export class MemberController {

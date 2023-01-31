@@ -4,105 +4,105 @@ import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-st
 import { IsRequiredString } from "src/core/decorators/dto-decorators/required-string.decorator";
 
 export class CreateMemberRequestDTO {
-  @IsRequiredString()
+  @IsRequiredString({ example: "3205354029100000" })
   no_identitas: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "2022-12-23" })
   tanggal_daftar: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "2023-01-23" })
   tanggal_valid: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "Octyo Paswa Putra" })
   nama_lengkap: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Octyo" })
   nama_depan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Paswa Putra" })
   nama_belakang?: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "2000-10-28" })
   tanggal_lahir: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "Garut" })
   tempat_lahir: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "Jl. Pembangungan Terus" })
   alamat: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "001/002" })
   rt_rw: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "Baleendah" })
   kelurahan: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "Bandung" })
   kota: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "081321832035" })
   no_hp: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "403185" })
   kode_pos?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Jl. Tetap Bangun" })
   domisili?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Belum Menikah" })
   status?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Islam" })
   agama?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "SLTA" })
   pendidikan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "> 2000000" })
   penghasilan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "< 2000000" })
   pengeluaran?: string;
 
-  @IsOptionalNumber()
+  @IsOptionalNumber({ example: 0 })
   jumlah_anak_pria?: number;
 
-  @IsOptionalNumber()
+  @IsOptionalNumber({ example: 0 })
   jumlah_anak_wanita?: number;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Kuli Perusahaan" })
   pekerjaan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "PT. Bangun Tidur" })
   nama_perusahaan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Jl. Tidur Aja Ngantuk" })
   alamat_perusahaan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Bandung" })
   kota_perusahaan?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Jasa" })
   bidang_usaha?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "082214773627" })
   emergency_number?: string;
 
-  @IsRequiredString()
+  @IsRequiredString({ example: "L" })
   jenis_kelamin: string;
 
-  @IsOptionalBoolean()
+  @IsOptionalBoolean({ example: false })
   terima_sms?: boolean;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "0224167261" })
   telp_rumah?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "0224167263" })
   telp_kantor?: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "lucifergotmad@gmail.com" })
   email?: string;
 
-  @IsOptionalBoolean()
+  @IsOptionalBoolean({ example: false })
   terima_email?: boolean;
 }

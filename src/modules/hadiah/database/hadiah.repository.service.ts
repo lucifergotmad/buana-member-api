@@ -6,6 +6,7 @@ import { HadiahMongoEntity } from "./model/hadiah.mongo-entity";
 import { HadiahEntity } from "../domain/hadiah.entity";
 import { HadiahRepositoryPort } from "./hadiah.repository.port";
 import { HadiahMongoMapper } from "./model/hadiah.mongo-mapper";
+import { HadiahIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class HadiahRepository
@@ -16,7 +17,11 @@ export class HadiahRepository
     @InjectModel(HadiahMongoEntity.name)
     private HadiahModel: Model<HadiahMongoEntity>,
   ) {
-    super(HadiahModel, new HadiahMongoMapper(HadiahEntity, HadiahMongoEntity));
+    super(
+      HadiahModel,
+      new HadiahMongoMapper(HadiahEntity, HadiahMongoEntity),
+      HadiahIgnore,
+    );
   }
 
   // fill me with beautiful method!

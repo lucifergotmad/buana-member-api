@@ -6,7 +6,7 @@ import { IRepositoryResponse } from "src/core/ports/interfaces/repository-respon
 import { Utils } from "src/core/utils/utils.service";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
 import { IId } from "src/interface-adapter/interfaces/id.interface";
-import { UpdateMemberRequestDTO } from "../controller/dtos/udpate-member.request.dto";
+import { UpdateMemberRequestDTO } from "../controller/dtos/update-member.request.dto";
 import { MemberRepositoryPort } from "../database/member.repository.port";
 import { InjectMemberRepository } from "../database/member.repository.provider";
 import { MemberMongoEntity } from "../database/model/member.mongo-entity";

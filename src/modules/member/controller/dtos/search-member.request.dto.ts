@@ -1,21 +1,21 @@
 import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-string.decorator";
 
 export class SearchMemberRequestDTO {
-  @IsOptionalString()
+  @IsOptionalString({ example: "Octyo Paswa Putra" })
   nama_member: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "PLG0000001" })
   kode_member: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "3205354029100000" })
   no_identitas: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "2000-10-28" })
   tanggal_lahir: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "Jl. Tetap Bangun" })
   alamat: string;
 
-  @IsOptionalString()
+  @IsOptionalString({ example: "08223178889" })
   no_hp: string;
 }
