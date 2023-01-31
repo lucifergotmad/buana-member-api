@@ -38,6 +38,10 @@ export class Guard {
     );
   }
 
+  static isValidRTRW(value: string) {
+    return /\d{3}\/\d{3}/s.test(value);
+  }
+
   static isDuplicate(value: any[]): boolean {
     return !!value.find((value, index) => value.indexOf(value) !== index);
   }

@@ -25,6 +25,7 @@ export class MemberMongoMapper extends DbMapper<
       telp_rumah: props?.telp_rumah.value,
       telp_kantor: props?.telp_kantor.value,
       agama: props?.agama.value,
+      rt_rw: props.rt_rw.value,
     };
     return mongoProps;
   }
