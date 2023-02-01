@@ -4,7 +4,7 @@ import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
-import { CreateStockHadiahCardRequestDTO } from "src/modules/tambah-hadiah/controller/dtos/add-stock-hadiah.request.dto";
+import { CreateStockHadiahCardRequestDTO } from "../controller/dtos/create-stock-hadiah-card.request.dto";
 import { StockHadiahCardRepositoryPort } from "../database/stock-hadiah-card.repository.port";
 import { InjectStockHadiahCardRepository } from "../database/stock-hadiah-card.repository.provider";
 import { StockHadiahCardEntity } from "../domain/stock-hadiah-card.entity";

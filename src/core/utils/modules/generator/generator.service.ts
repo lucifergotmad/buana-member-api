@@ -6,6 +6,8 @@ import { MemberRepositoryPort } from "src/modules/member/database/member.reposit
 import { InjectMemberRepository } from "src/modules/member/database/member.repository.provider";
 import { TambahHadiahRepositoryPort } from "src/modules/tambah-hadiah/database/tambah-hadiah.repository.port";
 import { InjectTambahHadiahRepository } from "src/modules/tambah-hadiah/database/tambah-hadiah.repository.provider";
+import { TukarPoinRepositoryPort } from "src/modules/tukar-poin/database/tukar-poin.repository.port";
+import { InjectTukarPoinRepository } from "src/modules/tukar-poin/database/tukar-poin.repository.provider";
 import { IGeneratorUtil } from "./generator.interface";
 
 @Injectable()
@@ -17,6 +19,8 @@ export class GeneratorUtil implements IGeneratorUtil {
     private readonly tambahHadiahRepository: TambahHadiahRepositoryPort,
     @InjectAdjustHadiahRepository
     private readonly adjustHadiahRepository: AdjustHadiahRepositoryPort,
+    @InjectTukarPoinRepository
+    private readonly tukarPoinRepository: TukarPoinRepositoryPort,
   ) {}
 
   async generateKodeMember(): Promise<string> {
@@ -60,6 +64,13 @@ export class GeneratorUtil implements IGeneratorUtil {
 
         latestNoTransaksi = adjustHadiah?.no_adjust_hadiah ?? null;
         break;
+      case TipeTransaksi.TukarPoin:
+        const tukarPoin = await this.tukarPoinRepository.findOneLatest({
+          no_tukar_poin: new RegExp(`${date}`),
+        });
+
+        latestNoTransaksi = tukarPoin?.no_tukar_poin ?? null;
+        break;
       default:
         throw new UnprocessableEntityException(
           "Invalid tipe transaksi when generate No Transaksi!",
@@ -87,6 +98,12 @@ export class GeneratorUtil implements IGeneratorUtil {
     switch (type) {
       case TipeTransaksi.TambahStockHadiah:
         prefix = "TSH";
+        break;
+      case TipeTransaksi.AdjustStockHadiah:
+        prefix = "ASH";
+        break;
+      case TipeTransaksi.TukarPoin:
+        prefix = "TPM";
         break;
       default:
         throw new UnprocessableEntityException(
