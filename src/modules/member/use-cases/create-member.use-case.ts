@@ -40,7 +40,7 @@ export class CreateMember
           tanggal_lahir: request.tanggal_lahir,
           tempat_lahir: request.tempat_lahir,
           alamat: request.alamat,
-          rt_rw: request.alamat,
+          rt_rw: request.rt_rw,
           kelurahan: request.kelurahan,
           kota: request.kota,
           no_hp: request.no_hp,
