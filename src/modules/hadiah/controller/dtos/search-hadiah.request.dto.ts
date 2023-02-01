@@ -1,9 +1,9 @@
-import { IsRequiredString } from "src/core/decorators/dto-decorators/required-string.decorator";
+import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-string.decorator";
 
 export class SearchHadiahRequestDTO {
-  @IsRequiredString({ example: "MGC" })
+  @IsOptionalString({ example: "MGC" })
   kode_hadiah: string;
 
-  @IsRequiredString({ example: "MAGIC COM" })
+  @IsOptionalString({ example: "MAGIC COM" })
   nama_hadiah: string;
 }

@@ -1,16 +1,13 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { RegisterUser } from "src/modules/user/use-cases/register-user.use-case";
-import { DeleteUser } from "src/modules/user/use-cases/delete-user.use-case";
-import { UpdateUser } from "src/modules/user/use-cases/update-user.use-case";
 import { UsersController } from "./users.controller";
 
 describe("UsersController", () => {
   let controller: UsersController;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [RegisterUser, UpdateUser, DeleteUser],
+      providers: [],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);

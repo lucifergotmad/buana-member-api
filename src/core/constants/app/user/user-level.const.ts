@@ -1,5 +1,7 @@
 export enum UserLevel {
-  Owner = "OWN",
-  Editor = "EDR",
-  Viewer = "VWR",
+  Owner = "OWNER",
+  Admin = "ADMIN",
+  Kasir = "KASIR",
+  SuperVisor = "SPV",
+  AdminMember = "ADMIN MEMBER",
 }

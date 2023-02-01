@@ -11,6 +11,7 @@ import { ExceptionUnauthorize } from "src/core/exceptions/unauthorize.exception"
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { AuthLoginRequestDTO } from "src/modules/app/controller/dtos/auth-login.dto";
 import { InjectUserRepository } from "src/modules/user/database/user.repository.provider";
+import { UserLevel } from "src/core/constants/app/user/user-level.const";
 
 @Injectable()
 export class AuthService {
@@ -22,8 +23,13 @@ export class AuthService {
     private utils: Utils,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.userRepository.findOne({ username });
+  async validateUser(
+    username: string,
+    password: string,
+  ): Promise<Partial<UserMongoEntity> | null> {
+    const user = await this.userRepository.findOne({
+      username,
+    });
 
     if (user) {
       const passwordMatch = await this.utils.hash.compare(
@@ -67,7 +73,7 @@ export class AuthService {
     const payload = { sub: user.username };
     const token = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: 86400,
+      expiresIn: "2h",
       secret: this.envService.jwtRefreshKey,
     });
 
