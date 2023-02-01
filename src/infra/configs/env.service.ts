@@ -30,7 +30,7 @@ export class EnvService {
     this._dbUsername = this.configService.get<string>(EnvKey.DB_USERNAME);
     this._dbPassword = this.configService.get<string>(EnvKey.DB_PASSWORD);
     this._jwtLimit = Number(
-      this.configService.get<number>(EnvKey.JWT_LIMIT) || 1200,
+      this.configService.get<number>(EnvKey.JWT_LIMIT) ?? 3600,
     );
   }
 

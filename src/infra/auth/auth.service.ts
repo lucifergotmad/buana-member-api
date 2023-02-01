@@ -73,7 +73,7 @@ export class AuthService {
     const payload = { sub: user.username };
     const token = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: "2h",
+      expiresIn: this.envService.jwtLimit,
       secret: this.envService.jwtRefreshKey,
     });
 
