@@ -11,7 +11,6 @@ import { ExceptionUnauthorize } from "src/core/exceptions/unauthorize.exception"
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { AuthLoginRequestDTO } from "src/modules/app/controller/dtos/auth-login.dto";
 import { InjectUserRepository } from "src/modules/user/database/user.repository.provider";
-import { UserLevel } from "src/core/constants/app/user/user-level.const";
 
 @Injectable()
 export class AuthService {

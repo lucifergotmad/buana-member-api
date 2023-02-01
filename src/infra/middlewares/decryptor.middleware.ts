@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { NextFunction, Request } from "express";
-import { Encryptor } from "src/services/encryptor.service";
+import { Encryptor } from "src/infra/services/encryptor.service";
 
 @Injectable()
 export class DecryptorMiddleware implements NestMiddleware {
