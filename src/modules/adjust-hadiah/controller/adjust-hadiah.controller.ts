@@ -1,5 +1,9 @@
 import { Body, Query } from "@nestjs/common";
-import { ApiConflictResponse, ApiOkResponse } from "@nestjs/swagger";
+import {
+  ApiConflictResponse,
+  ApiCreatedResponse,
+  ApiOkResponse,
+} from "@nestjs/swagger";
 import { APIQueryProperty } from "src/core/decorators/controller-decorators/class-decorators/api-query-property.decorator";
 import { ControllerProperty } from "src/core/decorators/controller-decorators/class-decorators/controller-property.decorator";
 import { SecureGet } from "src/core/decorators/controller-decorators/class-decorators/secure-get.decorator";
@@ -21,7 +25,7 @@ export class AdjustHadiahController {
   ) {}
 
   @SecurePost()
-  @ApiOkResponse({ type: MessageResponseDTO })
+  @ApiCreatedResponse({ type: MessageResponseDTO })
   @ApiConflictResponse({ description: "Data already exists!" })
   save(
     @Body() body: AdjustStockHadiahRequestDTO,

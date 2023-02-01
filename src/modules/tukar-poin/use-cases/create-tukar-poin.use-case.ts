@@ -81,15 +81,28 @@ export class CreateTukarPoin
           );
         }
 
-        await this.createPoinMemberCard.injectDecodedToken(this?.user).execute({
-          no_transaksi: noTukarPoin,
-          tanggal: this.utils.date.localDateString(date),
-          kategori: TipeTransaksi.TukarPoin,
-          kode_hadiah: request.kode_hadiah,
-          kode_member: request.kode_member,
-          poin_keluar: poinKeluar,
-          poin_masuk: 0,
-        });
+        await this.createPoinMemberCard.injectDecodedToken(this?.user).execute(
+          {
+            no_transaksi: noTukarPoin,
+            tanggal: this.utils.date.localDateString(date),
+            kategori: TipeTransaksi.TukarPoin,
+            kode_hadiah: request.kode_hadiah,
+            kode_member: request.kode_member,
+            poin_keluar: poinKeluar,
+            poin_masuk: 0,
+          },
+          session,
+        );
+
+        await this.memberRepository.update(
+          { kode_member: request.kode_member },
+          {
+            $inc: {
+              poin: poinKeluar * -1,
+            },
+          },
+          session,
+        );
 
         const detailHadiah: DetailHadiahRequestDTO[] = [
           {
@@ -99,14 +112,15 @@ export class CreateTukarPoin
           },
         ];
 
-        await this.createStockHadiahCard
-          .injectDecodedToken(this?.user)
-          .execute({
+        await this.createStockHadiahCard.injectDecodedToken(this?.user).execute(
+          {
             no_transaksi: noTukarPoin,
             tanggal: this.utils.date.localDateString(date),
             kategori: TipeTransaksi.TukarPoin,
             detail_hadiah: detailHadiah,
-          });
+          },
+          session,
+        );
       });
 
       return new MessageResponseDTO("Success tukar poin!");
