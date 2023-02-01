@@ -29,7 +29,7 @@ export class DeleteMember
 
       await session.withTransaction(async () => {
         result = await this.memberRepository.update(
-          { _id },
+          { _id, status_active: true },
           {
             status_active: false,
             updated_by: this.user?.username,

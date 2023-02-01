@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
@@ -28,16 +28,32 @@ export class AddHadiah
     try {
       let result: IRepositoryResponse;
       await session.withTransaction(async () => {
-        const hadiahEntity = HadiahEntity.create({
+        const hadiah = await this.hadiahRepository.findOne({
           kode_hadiah: request.kode_hadiah,
-          nama_hadiah: request.nama_hadiah,
-          poin_hadiah: request.poin_hadiah,
           status_active: true,
-          created_by: this.user?.username,
-          is_online: false,
         });
 
-        result = await this.hadiahRepository.save(hadiahEntity, session);
+        if (hadiah) {
+          if (!hadiah.status_active) {
+            await this.hadiahRepository.update(
+              { kode_hadiah: request.kode_hadiah },
+              { status_active: true, updated_by: this?.user.username },
+            );
+          } else {
+            throw new BadRequestException("Data hadiah already exists!");
+          }
+        } else {
+          const hadiahEntity = HadiahEntity.create({
+            kode_hadiah: request.kode_hadiah,
+            nama_hadiah: request.nama_hadiah,
+            poin_hadiah: request.poin_hadiah,
+            status_active: true,
+            created_by: this.user?.username,
+            is_online: false,
+          });
+
+          result = await this.hadiahRepository.save(hadiahEntity, session);
+        }
       });
 
       return new IdResponseDTO(result._id);

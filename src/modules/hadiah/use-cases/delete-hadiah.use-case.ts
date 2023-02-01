@@ -28,7 +28,7 @@ export class DeleteHadiah
       let result: IRepositoryResponse;
       await session.withTransaction(async () => {
         result = await this.hadiahRepository.update(
-          { _id },
+          { _id, status_active: true },
           { status_active: false },
           session,
         );

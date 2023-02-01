@@ -21,7 +21,10 @@ export class FindHadiahById
 
   async execute({ _id }: IId): Promise<HadiahResponseDTO> {
     try {
-      const result = await this.hadiahRepository.findById(_id);
+      const result = await this.hadiahRepository.findOne({
+        _id,
+        status_active: true,
+      });
 
       return new HadiahResponseDTO(result);
     } catch (error) {

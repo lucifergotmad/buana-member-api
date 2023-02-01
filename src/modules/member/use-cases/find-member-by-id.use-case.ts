@@ -21,7 +21,10 @@ export class FindMemberById
 
   async execute({ _id }: IId): Promise<MemberResponseDTO> {
     try {
-      const result = await this.memberRepository.findById(_id);
+      const result = await this.memberRepository.findOne({
+        _id,
+        status_active: true,
+      });
       return new MemberResponseDTO(result);
     } catch (error) {
       throw new ResponseException(error.message, error.status, error.trace);

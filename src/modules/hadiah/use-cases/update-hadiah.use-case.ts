@@ -35,7 +35,7 @@ export class UpdateHadiah
       await session.withTransaction(async () => {
         const payload: Partial<HadiahMongoEntity> = request;
         result = await this.hadiahRepository.update(
-          { _id },
+          { _id, status_active: true },
           { ...payload, updated_by: this.user?.username },
           session,
         );

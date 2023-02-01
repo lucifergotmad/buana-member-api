@@ -24,16 +24,18 @@ export class UpdateMember
     super();
   }
 
-  async execute(
-    request?: IId & UpdateMemberRequestDTO,
-  ): Promise<MessageResponseDTO> {
+  async execute({
+    _id,
+    ...body
+  }: IId & UpdateMemberRequestDTO): Promise<MessageResponseDTO> {
     const session = await this.utils.transaction.startTransaction();
     try {
       let result: IRepositoryResponse;
+
       await session.withTransaction(async () => {
-        const payload: Partial<MemberMongoEntity> = request;
+        const payload: Partial<MemberMongoEntity> = body;
         result = await this.memberRepository.update(
-          { _id: request._id },
+          { _id, status_active: true },
           { ...payload, updated_by: this.user?.username },
           session,
         );

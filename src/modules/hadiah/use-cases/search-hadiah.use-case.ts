@@ -26,6 +26,7 @@ export class SearchHadiah
     try {
       const result = await this.hadiahRepository.findBy({
         $and: [
+          { status_active: true },
           this._setOptionKode(request?.kode_hadiah),
           this._setOptionNama(request?.nama_hadiah),
         ],
