@@ -10,6 +10,8 @@ import { InjectHadiahRepository } from "src/modules/hadiah/database/hadiah.repos
 import { MemberRepositoryPort } from "src/modules/member/database/member.repository.port";
 import { InjectMemberRepository } from "src/modules/member/database/member.repository.provider";
 import { CreatePoinMemberCard } from "src/modules/poin-member-card/use-cases/create-poin-member-card.use-case";
+import { CreateStockHadiahCard } from "src/modules/stock-hadiah-card/use-cases/create-stock-hadiah-card.use-case";
+import { DetailHadiahRequestDTO } from "src/modules/tambah-hadiah/controller/dtos/add-stock-hadiah.request.dto";
 import { CreateTukarPoinRequestDTO } from "../controller/dtos/create-tukar-poin.request.dto";
 import { TukarPoinRepositoryPort } from "../database/tukar-poin.repository.port";
 import { InjectTukarPoinRepository } from "../database/tukar-poin.repository.provider";
@@ -28,6 +30,7 @@ export class CreateTukarPoin
     @InjectMemberRepository
     private readonly memberRepository: MemberRepositoryPort,
     private readonly createPoinMemberCard: CreatePoinMemberCard,
+    private readonly createStockHadiahCard: CreateStockHadiahCard,
     private readonly utils: Utils,
   ) {
     super();
@@ -87,6 +90,23 @@ export class CreateTukarPoin
           poin_keluar: poinKeluar,
           poin_masuk: 0,
         });
+
+        const detailHadiah: DetailHadiahRequestDTO[] = [
+          {
+            kode_hadiah: request.kode_hadiah,
+            stock_keluar: request.jumlah,
+            stock_masuk: 0,
+          },
+        ];
+
+        await this.createStockHadiahCard
+          .injectDecodedToken(this?.user)
+          .execute({
+            no_transaksi: noTukarPoin,
+            tanggal: this.utils.date.localDateString(date),
+            kategori: TipeTransaksi.TukarPoin,
+            detail_hadiah: detailHadiah,
+          });
       });
 
       return new MessageResponseDTO("Success tukar poin!");
