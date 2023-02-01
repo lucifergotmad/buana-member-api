@@ -1,6 +1,7 @@
 import { CacheModule, Module } from "@nestjs/common";
 import { ScheduleModule } from "@nestjs/schedule";
 import { EnvModule } from "src/infra/configs/env.module";
+import { AdjustHadiahRepositoryModule } from "src/modules/adjust-hadiah/database/adjust-hadiah.repository.module";
 import { MemberRepositoryModule } from "src/modules/member/database/member.repository.module";
 import { TambahHadiahRepositoryModule } from "src/modules/tambah-hadiah/database/tambah-hadiah.repository.module";
 import { CacheUtil } from "./cache/cache.service";
@@ -17,6 +18,7 @@ import { transactionProvider } from "./transaction/transaction.provider";
     EnvModule,
     MemberRepositoryModule,
     TambahHadiahRepositoryModule,
+    AdjustHadiahRepositoryModule,
   ],
   providers: [
     CacheUtil,

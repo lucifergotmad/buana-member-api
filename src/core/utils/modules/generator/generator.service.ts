@@ -1,5 +1,7 @@
 import { Injectable, UnprocessableEntityException } from "@nestjs/common";
 import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.const";
+import { AdjustHadiahRepositoryPort } from "src/modules/adjust-hadiah/database/adjust-hadiah.repository.port";
+import { InjectAdjustHadiahRepository } from "src/modules/adjust-hadiah/database/adjust-hadiah.repository.provider";
 import { MemberRepositoryPort } from "src/modules/member/database/member.repository.port";
 import { InjectMemberRepository } from "src/modules/member/database/member.repository.provider";
 import { TambahHadiahRepositoryPort } from "src/modules/tambah-hadiah/database/tambah-hadiah.repository.port";
@@ -13,6 +15,8 @@ export class GeneratorUtil implements IGeneratorUtil {
     private readonly memberRepository: MemberRepositoryPort,
     @InjectTambahHadiahRepository
     private readonly tambahHadiahRepository: TambahHadiahRepositoryPort,
+    @InjectAdjustHadiahRepository
+    private readonly adjustHadiahRepository: AdjustHadiahRepositoryPort,
   ) {}
 
   async generateKodeMember(): Promise<string> {
@@ -43,11 +47,18 @@ export class GeneratorUtil implements IGeneratorUtil {
 
     switch (type) {
       case TipeTransaksi.TambahStockHadiah:
-        const transaksi = await this.tambahHadiahRepository.findOneLatest({
+        const tambahHadiah = await this.tambahHadiahRepository.findOneLatest({
           no_tambah_hadiah: new RegExp(`${date}`),
         });
+        latestNoTransaksi = tambahHadiah?.no_tambah_hadiah ?? null;
 
-        latestNoTransaksi = transaksi?.no_tambah_hadiah ?? null;
+        break;
+      case TipeTransaksi.AdjustStockHadiah:
+        const adjustHadiah = await this.adjustHadiahRepository.findOneLatest({
+          no_adjust_hadiah: new RegExp(`${date}`),
+        });
+
+        latestNoTransaksi = adjustHadiah?.no_adjust_hadiah ?? null;
         break;
       default:
         throw new UnprocessableEntityException(

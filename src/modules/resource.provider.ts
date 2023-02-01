@@ -1,3 +1,4 @@
+import { AdjustHadiahModule } from "./adjust-hadiah/adjust-hadiah.module";
 import { AppAuthModule } from "./app/app-auth.module";
 import { HadiahModule } from "./hadiah/hadiah.module";
 import { MemberModule } from "./member/member.module";
@@ -11,6 +12,7 @@ const systemProviders = [
   MemberModule,
   HadiahModule,
   TambahHadiahModule,
+  AdjustHadiahModule,
   StockHadiahCardModule,
 ];
 

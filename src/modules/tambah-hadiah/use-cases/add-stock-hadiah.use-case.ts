@@ -54,7 +54,7 @@ export class AddStockHadiah
 
         await this.createStockHadiahCard.injectDecodedToken(this?.user).execute(
           {
-            no_tambah_hadiah: noTambahHadiah,
+            no_transaksi: noTambahHadiah,
             tanggal: this.utils.date.localDateString(date),
             kategori: TipeTransaksi.TambahStockHadiah,
             detail_hadiah: groupedHadiah,
@@ -79,11 +79,13 @@ export class AddStockHadiah
         acc[value.kode_hadiah] = {
           kode_hadiah: value.kode_hadiah,
           stock_masuk: value.stock_masuk,
+          stock_keluar: value?.stock_keluar ?? 0,
         };
         groupedHadiah.push(acc[value.kode_hadiah]);
       }
 
       acc[value.kode_hadiah].stock_masuk += value.stock_masuk;
+      acc[value.kode_hadiah].stock_keluar += value?.stock_keluar ?? 0;
       return acc;
     }, {});
 

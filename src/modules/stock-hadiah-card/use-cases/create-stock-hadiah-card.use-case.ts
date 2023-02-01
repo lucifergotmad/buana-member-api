@@ -37,8 +37,14 @@ export class CreateStockHadiahCard
           { kode_hadiah: hadiah.kode_hadiah },
           {
             $inc: {
-              stock_awal: awalStock,
-              stock_akhir: akhirStock,
+              stock_awal:
+                !hadiah.stock_keluar || hadiah.stock_masuk
+                  ? awalStock
+                  : awalStock * -1,
+              stock_akhir:
+                !hadiah.stock_keluar || hadiah.stock_masuk
+                  ? akhirStock
+                  : akhirStock * -1,
             },
           },
           session,
@@ -48,10 +54,10 @@ export class CreateStockHadiahCard
           kode_hadiah: hadiah.kode_hadiah,
           created_by: this.user?.username,
           kategori: request.kategori,
-          no_referensi: request.no_tambah_hadiah,
+          no_referensi: request.no_transaksi,
           stock_akhir: akhirStock,
           stock_awal: awalStock,
-          stock_keluar: 0,
+          stock_keluar: hadiah.stock_keluar,
           stock_masuk: hadiah.stock_masuk,
           is_online: false,
         });
