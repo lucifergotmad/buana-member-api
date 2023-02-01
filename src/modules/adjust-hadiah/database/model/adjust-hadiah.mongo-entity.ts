@@ -35,6 +35,9 @@ export class AdjustHadiahMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   updated_at?: Date;
 
+  @Prop({ required: false })
+  deleted_by?: string;
+
   @Prop({ required: true, default: false })
   is_online: boolean;
 }

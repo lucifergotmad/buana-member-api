@@ -33,7 +33,7 @@ export class RegisterUser
           {
             username: user.username,
           },
-          "Username or Email are already use",
+          "Username are already in use",
         );
 
         const userEntity = await UserEntity.create({

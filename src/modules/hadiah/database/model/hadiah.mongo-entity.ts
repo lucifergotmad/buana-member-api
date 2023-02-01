@@ -27,6 +27,9 @@ export class HadiahMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   updated_at?: Date;
 
+  @Prop({ required: false })
+  deleted_by?: string;
+
   @Prop({ required: true, default: true })
   status_active: boolean;
 

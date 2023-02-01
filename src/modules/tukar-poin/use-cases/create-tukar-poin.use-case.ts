@@ -61,7 +61,7 @@ export class CreateTukarPoin
           kode_member: request.kode_member,
           kode_hadiah: request.kode_hadiah,
           jumlah: request.jumlah,
-          created_by: this?.user.username,
+          created_by: this?.user?.username,
           is_online: false,
         });
 

@@ -37,7 +37,7 @@ export class AddHadiah
           if (!hadiah.status_active) {
             await this.hadiahRepository.update(
               { kode_hadiah: request.kode_hadiah },
-              { status_active: true, updated_by: this?.user.username },
+              { status_active: true, updated_by: this?.user?.username },
             );
           } else {
             throw new BadRequestException("Data hadiah already exists!");
@@ -48,7 +48,7 @@ export class AddHadiah
             nama_hadiah: request.nama_hadiah,
             poin_hadiah: request.poin_hadiah,
             status_active: true,
-            created_by: this.user?.username,
+            created_by: this?.user?.username,
             is_online: false,
           });
 

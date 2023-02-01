@@ -32,8 +32,7 @@ export class DeleteMember
           { _id, status_active: true },
           {
             status_active: false,
-            updated_by: this.user?.username,
-            updated_at: new Date(),
+            deleted_by: this?.user?.username,
           },
           session,
         );

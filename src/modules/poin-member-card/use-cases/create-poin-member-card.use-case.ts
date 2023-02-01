@@ -57,7 +57,7 @@ export class CreatePoinMemberCard
       const poinMemberCardEntity = PoinMemberCardEntity.create({
         kode_member: request.kode_member,
         tanggal: request.tanggal,
-        created_by: this?.user.username,
+        created_by: this?.user?.username,
         kategori: request.kategori,
         no_referensi: request.no_transaksi,
         poin_akhir: akhirPoin,

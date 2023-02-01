@@ -36,7 +36,7 @@ export class UpdateMember
         const payload: Partial<MemberMongoEntity> = body;
         result = await this.memberRepository.update(
           { _id, status_active: true },
-          { ...payload, updated_by: this.user?.username },
+          { ...payload, updated_by: this?.user?.username },
           session,
         );
       });

@@ -21,12 +21,12 @@ export class DeleteUser
     super();
   }
 
-  public async execute(id: string): Promise<IMessage> {
+  public async execute(_id: string): Promise<IMessage> {
     const session = await this.utils.transaction.startTransaction();
     let result: IRepositoryResponse;
     try {
       await session.withTransaction(async () => {
-        result = await this.userRepository.delete({ _id: id });
+        result = await this.userRepository.delete({ _id });
       });
 
       return new MessageResponseDTO(`${result.n} documents deleted!`);

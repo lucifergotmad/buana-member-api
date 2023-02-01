@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.const";
@@ -16,6 +16,8 @@ import { AdjustHadiahRepositoryPort } from "../database/adjust-hadiah.repository
 import { InjectAdjustHadiahRepository } from "../database/adjust-hadiah.repository.provider";
 import { AdjustHadiahEntity } from "../domain/adjust-hadiah.entity";
 import { CreateStockHadiahCard } from "src/modules/stock-hadiah-card/use-cases/create-stock-hadiah-card.use-case";
+import { InjectHadiahRepository } from "src/modules/hadiah/database/hadiah.repository.provider";
+import { HadiahRepositoryPort } from "src/modules/hadiah/database/hadiah.repository.port";
 
 @Injectable()
 export class AdjustStockHadiah
@@ -27,6 +29,8 @@ export class AdjustStockHadiah
     private readonly adjustHadiahRepository: AdjustHadiahRepositoryPort,
     @InjectStockHadiahCardRepository
     private readonly stockHadiahCardRepository: StockHadiahCardRepositoryPort,
+    @InjectHadiahRepository
+    private readonly hadiahRepository: HadiahRepositoryPort,
     private readonly createStockHadiahCard: CreateStockHadiahCard,
     private readonly utils: Utils,
   ) {
@@ -49,7 +53,7 @@ export class AdjustStockHadiah
         const adjustHadiahEntity = AdjustHadiahEntity.create({
           no_adjust_hadiah: noAdjustHadiah,
           tanggal: this.utils.date.localDateString(date),
-          created_by: this?.user.username,
+          created_by: this?.user?.username,
           detail_hadiah: request.detail_hadiah,
           is_online: false,
         });
@@ -84,6 +88,17 @@ export class AdjustStockHadiah
   ): Promise<DetailHadiahDTO[]> {
     const result: DetailHadiahDTO[] = [];
     for (const hadiah of detail_hadiah) {
+      const isAvailable = await this.hadiahRepository.findOne({
+        status_active: true,
+        kode_hadiah: hadiah.kode_hadiah,
+      });
+
+      if (!isAvailable) {
+        throw new BadRequestException(
+          `Data Hadiah ${hadiah.kode_hadiah} tidak dapat ditemukan!`,
+        );
+      }
+
       const latesStock = await this.stockHadiahCardRepository.findOneLatest({
         kode_hadiah: hadiah.kode_hadiah,
       });
