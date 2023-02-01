@@ -26,6 +26,7 @@ export class SearchMember
     try {
       const result = await this.memberRepository.findBySorted({
         $and: [
+          { status_active: true },
           this._setOptionNama(request?.nama_member),
           this._setOptionKode(request?.kode_member),
           this._setOptionNIK(request?.no_identitas),

@@ -111,6 +111,9 @@ export class MemberMongoEntity extends BaseMongoEntity<
   @Prop({ required: false })
   terima_email?: boolean;
 
+  @Prop({ required: true, default: 0 })
+  poin: number;
+
   @Prop({ required: false })
   created_by?: string;
 

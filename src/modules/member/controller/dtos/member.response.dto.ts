@@ -22,6 +22,7 @@ export class MemberResponseDTO implements IMemberResponse {
     this.domisili = props.domisili;
     this.status = props.status;
     this.agama = props.agama;
+    this.poin = props.poin;
     this.pendidikan = props.pendidikan;
     this.penghasilan = props.pengeluaran;
     this.jumlah_anak_pria = props.jumlah_anak_pria;
@@ -79,6 +80,9 @@ export class MemberResponseDTO implements IMemberResponse {
 
   @ApiProperty({ example: "081321832035" })
   no_hp: string;
+
+  @ApiProperty({ example: 0 })
+  poin: number;
 
   @ApiProperty({ example: "403185" })
   kode_pos?: string;

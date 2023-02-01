@@ -11,16 +11,8 @@ import { StatusMenikah } from "./value-objects/status-menikah.value-object";
 import { TeleponTetap } from "./value-objects/telepon-tetap.value-object";
 
 interface IDetailMemberProps {
-  nama_lengkap: string;
   nama_depan?: string;
   nama_belakang?: string;
-  tanggal_lahir: string;
-  tempat_lahir: string;
-  alamat: string;
-  rt_rw: RtRw;
-  kelurahan: string;
-  kota: string;
-  no_hp: NomorTelepon;
   kode_pos?: string;
   domisili?: string;
   status?: StatusMenikah;
@@ -37,17 +29,26 @@ interface IDetailMemberProps {
   bidang_usaha?: string;
   emergency_number?: NomorTelepon;
   jenis_kelamin: JenisKelamin;
-  terima_sms?: boolean;
   telp_rumah?: TeleponTetap;
   telp_kantor?: TeleponTetap;
   email?: Email;
-  terima_email?: boolean;
 }
 export interface IMemberProps extends IDetailMemberProps, IHistoryUser {
+  nama_lengkap: string;
   kode_member: string;
   no_identitas: NomorIdentitas;
   tanggal_daftar: string;
   tanggal_valid: string;
+  tanggal_lahir: string;
+  tempat_lahir: string;
+  alamat: string;
+  rt_rw: RtRw;
+  kelurahan: string;
+  kota: string;
+  no_hp: NomorTelepon;
+  poin: number;
+  terima_sms?: boolean;
+  terima_email?: boolean;
   status_active: boolean;
   is_online?: boolean;
 }
