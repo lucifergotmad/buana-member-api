@@ -6,6 +6,7 @@ import { TukarPoinMongoEntity } from "./model/tukar-poin.mongo-entity";
 import { TukarPoinEntity } from "../domain/tukar-poin.entity";
 import { TukarPoinRepositoryPort } from "./tukar-poin.repository.port";
 import { TukarPoinMongoMapper } from "./model/tukar-poin.mongo-mapper";
+import { TukarPoinIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class TukarPoinRepository
@@ -19,6 +20,7 @@ export class TukarPoinRepository
     super(
       TukarPoinModel,
       new TukarPoinMongoMapper(TukarPoinEntity, TukarPoinMongoEntity),
+      TukarPoinIgnore,
     );
   }
 

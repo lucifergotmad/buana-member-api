@@ -6,6 +6,7 @@ import { AdjustHadiahMongoEntity } from "./model/adjust-hadiah.mongo-entity";
 import { AdjustHadiahEntity } from "../domain/adjust-hadiah.entity";
 import { AdjustHadiahRepositoryPort } from "./adjust-hadiah.repository.port";
 import { AdjustHadiahMongoMapper } from "./model/adjust-hadiah.mongo-mapper";
+import { AdjustHadiahIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class AdjustHadiahRepository
@@ -19,6 +20,7 @@ export class AdjustHadiahRepository
     super(
       AdjustHadiahModel,
       new AdjustHadiahMongoMapper(AdjustHadiahEntity, AdjustHadiahMongoEntity),
+      AdjustHadiahIgnore,
     );
   }
 

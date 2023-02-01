@@ -6,6 +6,7 @@ import { TambahHadiahMongoEntity } from "./model/tambah-hadiah.mongo-entity";
 import { TambahHadiahEntity } from "../domain/tambah-hadiah.entity";
 import { TambahHadiahRepositoryPort } from "./tambah-hadiah.repository.port";
 import { TambahHadiahMongoMapper } from "./model/tambah-hadiah.mongo-mapper";
+import { TambahHadiahIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class TambahHadiahRepository
@@ -19,6 +20,7 @@ export class TambahHadiahRepository
     super(
       TambahHadiahModel,
       new TambahHadiahMongoMapper(TambahHadiahEntity, TambahHadiahMongoEntity),
+      TambahHadiahIgnore,
     );
   }
 

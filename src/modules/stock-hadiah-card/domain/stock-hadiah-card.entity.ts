@@ -3,6 +3,7 @@ import { IHistoryUser } from "src/interface-adapter/interfaces/history-user.inte
 
 export interface IStockHadiahCardProps extends IHistoryUser {
   kode_hadiah: string;
+  tanggal: string;
   stock_awal: number;
   stock_masuk: number;
   stock_keluar: number;

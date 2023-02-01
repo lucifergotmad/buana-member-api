@@ -6,6 +6,7 @@ import { StockHadiahCardMongoEntity } from "./model/stock-hadiah-card.mongo-enti
 import { StockHadiahCardEntity } from "../domain/stock-hadiah-card.entity";
 import { StockHadiahCardRepositoryPort } from "./stock-hadiah-card.repository.port";
 import { StockHadiahCardMongoMapper } from "./model/stock-hadiah-card.mongo-mapper";
+import { StockHadiahCardIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class StockHadiahCardRepository
@@ -22,6 +23,7 @@ export class StockHadiahCardRepository
         StockHadiahCardEntity,
         StockHadiahCardMongoEntity,
       ),
+      StockHadiahCardIgnore,
     );
   }
 
