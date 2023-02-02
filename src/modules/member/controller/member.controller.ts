@@ -2,6 +2,7 @@ import { Body, Param, Query } from "@nestjs/common";
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
+  ApiCreatedResponse,
   ApiOkResponse,
 } from "@nestjs/swagger";
 import { APIQueryProperty } from "src/core/decorators/controller-decorators/class-decorators/api-query-property.decorator";
@@ -38,7 +39,7 @@ export class MemberController {
   ) {}
 
   @SecurePost()
-  @ApiOkResponse({ type: IdResponseDTO })
+  @ApiCreatedResponse({ type: IdResponseDTO })
   @ApiConflictResponse({ description: "Data already exists" })
   save(
     @Body() body: CreateMemberRequestDTO,
