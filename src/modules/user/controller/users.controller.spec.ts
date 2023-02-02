@@ -6,6 +6,7 @@ import { DeleteUser } from "../use-cases/delete-user.use-case";
 import { FindUserById } from "../use-cases/find-user-by-id.use-case";
 import { UpdateUser } from "../use-cases/update-user.use-case";
 import { UserUseCaseModule } from "../use-cases/user.use-case.module";
+import { UserModule } from "../user.module";
 import { UsersController } from "./users.controller";
 
 describe("UsersController", () => {
@@ -20,7 +21,7 @@ describe("UsersController", () => {
         DeleteUser,
         UpdateUser,
         FindUserById,
-        UserUseCaseModule,
+        UserRepositoryModule,
         UtilsModule,
       ],
     }).compile();

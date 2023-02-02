@@ -34,25 +34,28 @@ export class CreateStockHadiahCard
         const latesStock = await this.stockHadiahCardRepository.findOneLatest({
           kode_hadiah: hadiah.kode_hadiah,
         });
+
         const awalStock = latesStock ? latesStock.stock_akhir : 0;
         const akhirStock = awalStock + hadiah.stock_masuk;
 
-        await this.stockHadiahCardRepository.update(
-          { kode_hadiah: hadiah.kode_hadiah },
-          {
-            $inc: {
-              stock_awal:
-                !hadiah.stock_keluar || hadiah.stock_masuk
-                  ? awalStock
-                  : awalStock * -1,
-              stock_akhir:
-                !hadiah.stock_keluar || hadiah.stock_masuk
-                  ? akhirStock
-                  : akhirStock * -1,
+        if (latesStock) {
+          await this.stockHadiahCardRepository.update(
+            { kode_hadiah: hadiah.kode_hadiah },
+            {
+              $inc: {
+                stock_awal:
+                  !hadiah.stock_keluar || hadiah.stock_masuk
+                    ? awalStock
+                    : awalStock * -1,
+                stock_akhir:
+                  !hadiah.stock_keluar || hadiah.stock_masuk
+                    ? akhirStock
+                    : akhirStock * -1,
+              },
             },
-          },
-          session,
-        );
+            session,
+          );
+        }
 
         const stockHadiahCardEntity = StockHadiahCardEntity.create({
           kode_hadiah: hadiah.kode_hadiah,

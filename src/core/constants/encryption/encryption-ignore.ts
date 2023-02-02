@@ -38,4 +38,5 @@ export const StockHadiahCardIgnore = [
   "no_referensi",
   "kode_hadiah",
   "tanggal",
+  "kategori",
 ];

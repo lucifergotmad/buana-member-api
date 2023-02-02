@@ -87,6 +87,7 @@ export class AdjustStockHadiah
     detail_hadiah: DetailHadiahRequestDTO[],
   ): Promise<DetailHadiahDTO[]> {
     const result: DetailHadiahDTO[] = [];
+
     for (const hadiah of detail_hadiah) {
       const isAvailable = await this.hadiahRepository.findOne({
         status_active: true,
@@ -108,14 +109,14 @@ export class AdjustStockHadiah
       if (awalStock > hadiah.stock_akhir) {
         result.push({
           kode_hadiah: hadiah.kode_hadiah,
-          stock_keluar: Math.abs(awalStock - hadiah.stock_akhir),
+          stock_keluar: awalStock - hadiah.stock_akhir,
           stock_masuk: 0,
         });
       } else {
         result.push({
           kode_hadiah: hadiah.kode_hadiah,
           stock_keluar: 0,
-          stock_masuk: awalStock - hadiah.stock_akhir,
+          stock_masuk: Math.abs(awalStock - hadiah.stock_akhir),
         });
       }
     }
