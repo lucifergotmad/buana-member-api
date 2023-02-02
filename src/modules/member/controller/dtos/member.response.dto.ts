@@ -12,6 +12,10 @@ export class MemberResponseDTO
 {
   constructor(props: IMemberResponse) {
     super(props._id);
+    this.no_hp = props.no_hp;
+    this.tempat_lahir = props.tempat_lahir;
+    this.pengeluaran = props.pengeluaran;
+    this.tanggal_valid = props.tanggal_valid;
     this.kode_member = props.kode_member;
     this.no_identitas = props.no_identitas;
     this.tanggal_daftar = props.tanggal_daftar;
