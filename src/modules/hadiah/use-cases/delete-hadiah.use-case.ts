@@ -29,7 +29,7 @@ export class DeleteHadiah
       await session.withTransaction(async () => {
         result = await this.hadiahRepository.update(
           { _id, status_active: true },
-          { status_active: false, deleted_by: this?.user?.username },
+          { status_active: false, deleted_by: this?.user?.user_id },
           session,
         );
       });

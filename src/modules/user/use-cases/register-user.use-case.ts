@@ -30,15 +30,14 @@ export class RegisterUser
     try {
       await session.withTransaction(async () => {
         await this.userRepository.findOneAndThrow(
-          {
-            username: user.username,
-          },
-          "Username are already in use",
+          { user_id: user.user_id },
+          "User Id are already in use",
         );
 
         const userEntity = await UserEntity.create({
           password: user.password,
-          username: user.username,
+          user_id: user.user_id,
+          user_name: user.user_name,
           level: UserLevel.Owner,
         });
 

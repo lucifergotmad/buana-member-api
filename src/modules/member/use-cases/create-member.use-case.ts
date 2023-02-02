@@ -66,7 +66,7 @@ export class CreateMember
           email: request?.email,
           terima_email: request?.terima_email,
           poin: 0,
-          created_by: this?.user?.username,
+          created_by: this?.user?.user_id,
           status_active: true,
           is_online: false,
         });

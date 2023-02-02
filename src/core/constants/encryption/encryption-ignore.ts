@@ -1,4 +1,4 @@
-export const UserIgnore = ["_id", "password", "level"];
+export const UserIgnore = ["_id", "password", "level", "user_id"];
 
 export const MemberIgnore = [
   "_id",

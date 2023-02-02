@@ -6,7 +6,10 @@ import { UserLevel } from "src/core/constants/app/user/user-level.const";
 @Schema({ collection: "tm_users" })
 export class UserMongoEntity extends BaseMongoEntity<typeof UserMongoEntity> {
   @Prop({ required: true, unique: true })
-  username: string;
+  user_id: string;
+
+  @Prop({ required: true })
+  user_name: string;
 
   @Prop({ required: true })
   password: string;

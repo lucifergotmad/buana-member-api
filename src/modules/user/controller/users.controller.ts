@@ -16,11 +16,7 @@ import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.
 import { DeleteUser } from "src/modules/user/use-cases/delete-user.use-case";
 import { UpdateUser } from "src/modules/user/use-cases/update-user.use-case";
 import { UserMongoEntity } from "../database/model/user.mongo-entity";
-import { UserRepositoryPort } from "../database/user.repository.port";
-import {
-  InjectUserRepository,
-  InjectUserRepositoryOnline,
-} from "../database/user.repository.provider";
+import { InjectUserRepository } from "../database/user.repository.provider";
 import { UserRepository } from "../database/user.repository.service";
 import { CreateUser } from "../use-cases/create-user.use-case";
 import { FindUserById } from "../use-cases/find-user-by-id.use-case";

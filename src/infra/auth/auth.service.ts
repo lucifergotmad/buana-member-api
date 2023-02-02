@@ -23,11 +23,11 @@ export class AuthService {
   ) {}
 
   async validateUser(
-    username: string,
+    user_id: string,
     password: string,
   ): Promise<Partial<UserMongoEntity> | null> {
     const user = await this.userRepository.findOne({
-      username,
+      user_id,
     });
 
     if (user) {
@@ -47,15 +47,16 @@ export class AuthService {
   async login(body: AuthLoginRequestDTO) {
     try {
       const user = await this.userRepository.findOne({
-        username: body.username,
+        user_id: body.user_id,
       });
 
       const { access_token, refresh_token } = await this.registerToken(user);
 
       return new AuthLoginResponseDTO({
-        accessToken: access_token,
-        refreshToken: refresh_token,
-        username: user.username,
+        access_token: access_token,
+        refresh_token: refresh_token,
+        user_id: user.user_id,
+        level: user.level,
       });
     } catch (error) {
       throw new ResponseException(error.response, error.status, error.trace);
@@ -64,12 +65,12 @@ export class AuthService {
 
   async logout(body: AuthRefreshTokenRequestDTO) {
     await this.utils.cache.delete(body.refresh_token);
-    await this.utils.cache.delete(body.username);
+    await this.utils.cache.delete(body.user_id);
     return new MessageResponseDTO("Berhasil Logout");
   }
 
   async registerToken(user: Partial<UserMongoEntity>) {
-    const payload = { sub: user.username };
+    const payload = { sub: user.user_id };
     const token = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, {
       expiresIn: this.envService.jwtLimit,
@@ -83,9 +84,9 @@ export class AuthService {
     try {
       await this._validateRefreshToken(body);
 
-      const payload = { sub: body.username };
+      const payload = { sub: body.user_id };
       const token = this.jwtService.sign(payload);
-      await this.utils.cache.set(body.username, true);
+      await this.utils.cache.set(body.user_id, true);
       return { access_token: token };
     } catch (error) {
       throw new ResponseException(error.response, error.status, error.trace);
@@ -94,7 +95,7 @@ export class AuthService {
 
   private async _validateRefreshToken(body: AuthRefreshTokenRequestDTO) {
     const validToken = await this.utils.cache.get(body.refresh_token);
-    if (!validToken || body.username !== validToken)
+    if (!validToken || body.user_id !== validToken)
       throw new ExceptionUnauthorize("Invalid Refresh Token.", this);
   }
 }

@@ -53,7 +53,7 @@ export class CreateStockHadiahCard
         const stockHadiahCardEntity = StockHadiahCardEntity.create({
           kode_hadiah: hadiah.kode_hadiah,
           tanggal: request.tanggal,
-          created_by: this?.user?.username,
+          created_by: this?.user?.user_id,
           kategori: request.kategori,
           no_referensi: request.no_transaksi,
           stock_akhir: akhirStock,

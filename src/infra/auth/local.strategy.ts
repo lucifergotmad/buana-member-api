@@ -1,9 +1,7 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { PATH_METADATA } from "@nestjs/common/constants";
 import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
 import { UserLevel } from "src/core/constants/app/user/user-level.const";
-import { AppController } from "src/modules/app/controller/app-auth.controller";
 import { UserMongoEntity } from "src/modules/user/database/model/user.mongo-entity";
 import { AuthService } from "./auth.service";
 
@@ -14,10 +12,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(
-    username: string,
+    user_id: string,
     password: string,
   ): Promise<Partial<UserMongoEntity> | null> {
-    const user = await this.authService.validateUser(username, password);
+    const user = await this.authService.validateUser(user_id, password);
     if (!user) {
       throw new UnauthorizedException("Email dan Password tidak valid!");
     }
@@ -28,6 +26,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     ) {
       throw new UnauthorizedException("Maaf user ini tidak memiliki akses!");
     }
+
     return user;
   }
 }

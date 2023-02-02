@@ -32,7 +32,7 @@ export class DeleteMember
           { _id, status_active: true },
           {
             status_active: false,
-            deleted_by: this?.user?.username,
+            deleted_by: this?.user?.user_id,
           },
           session,
         );

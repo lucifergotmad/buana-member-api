@@ -3,7 +3,8 @@ import { Level } from "./value-objects/level.value-object";
 import { Password } from "./value-objects/password.value-object";
 
 export interface IUserProps {
-  username: string;
+  user_id: string;
+  user_name: string;
   password: Password;
   level: Level;
   is_online?: boolean;
@@ -24,7 +25,8 @@ export class UserEntity extends AggregateRoot<IUserProps> {
     const password = await Password.create(props.password);
 
     return new UserEntity({
-      username: props.username,
+      user_id: props.user_id,
+      user_name: props.user_name,
       password: password,
       level: new Level(props.level),
     });

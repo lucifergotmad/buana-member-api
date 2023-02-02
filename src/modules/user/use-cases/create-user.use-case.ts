@@ -26,9 +26,11 @@ export class CreateUser
     const session = await this.utils.transaction.startTransaction();
     try {
       let result: IRepositoryResponse;
+
       await session.withTransaction(async () => {
         const userEntity = await UserEntity.create({
-          username: request.username,
+          user_id: request.user_id,
+          user_name: request.user_name,
           password: request.password,
           level: request.level,
         });

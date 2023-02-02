@@ -9,7 +9,7 @@ export interface APIProperty {
 }
 
 interface JwtDecoded {
-  username?: string;
+  user_id?: string;
 }
 
 @Injectable()

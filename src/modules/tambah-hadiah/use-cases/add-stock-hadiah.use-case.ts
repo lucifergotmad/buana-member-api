@@ -45,7 +45,7 @@ export class AddStockHadiah
           no_tambah_hadiah: noTambahHadiah,
           tanggal: this.utils.date.localDateString(date),
           detail_hadiah: request.detail_hadiah,
-          created_by: this?.user?.username,
+          created_by: this?.user?.user_id,
           is_online: false,
         });
 

@@ -53,7 +53,7 @@ export class AdjustStockHadiah
         const adjustHadiahEntity = AdjustHadiahEntity.create({
           no_adjust_hadiah: noAdjustHadiah,
           tanggal: this.utils.date.localDateString(date),
-          created_by: this?.user?.username,
+          created_by: this?.user?.user_id,
           detail_hadiah: request.detail_hadiah,
           is_online: false,
         });
