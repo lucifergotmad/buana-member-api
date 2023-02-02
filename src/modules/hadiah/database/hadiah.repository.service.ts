@@ -23,9 +23,4 @@ export class HadiahRepository
       HadiahIgnore,
     );
   }
-
-  // fill me with beautiful method!
-  __init__(): void {
-    //replace this lonely method!
-  }
 }

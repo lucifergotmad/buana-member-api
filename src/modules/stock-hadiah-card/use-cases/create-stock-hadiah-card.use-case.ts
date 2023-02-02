@@ -4,6 +4,8 @@ import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
+import { HadiahRepositoryPort } from "src/modules/hadiah/database/hadiah.repository.port";
+import { InjectHadiahRepository } from "src/modules/hadiah/database/hadiah.repository.provider";
 import { CreateStockHadiahCardRequestDTO } from "../controller/dtos/create-stock-hadiah-card.request.dto";
 import { StockHadiahCardRepositoryPort } from "../database/stock-hadiah-card.repository.port";
 import { InjectStockHadiahCardRepository } from "../database/stock-hadiah-card.repository.provider";
@@ -17,6 +19,8 @@ export class CreateStockHadiahCard
   constructor(
     @InjectStockHadiahCardRepository
     private readonly stockHadiahCardRepository: StockHadiahCardRepositoryPort,
+    @InjectHadiahRepository
+    private readonly hadiahRepository: HadiahRepositoryPort,
   ) {
     super();
   }
@@ -65,6 +69,12 @@ export class CreateStockHadiahCard
 
         await this.stockHadiahCardRepository.save(
           stockHadiahCardEntity,
+          session,
+        );
+
+        await this.hadiahRepository.update(
+          { kode_hadiah: hadiah.kode_hadiah },
+          { stock_hadiah: akhirStock },
           session,
         );
       }

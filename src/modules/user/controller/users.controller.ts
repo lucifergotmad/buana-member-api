@@ -56,8 +56,8 @@ export class UsersController {
   @SecureGet(":_id")
   @ApiBadRequestResponse({ description: "Bad Request (ID not valid)" })
   @ApiOkResponse({ type: UserReponseDTO })
-  findOne(@Param("_id") id: string) {
-    return this.findUserById.execute(id);
+  findOne(@Param("_id") _id: string) {
+    return this.findUserById.execute(_id);
   }
 
   @SecurePut(":_id")

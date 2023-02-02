@@ -5,6 +5,7 @@ export interface IHadiahProps extends IHistoryUser {
   kode_hadiah: string;
   nama_hadiah: string;
   poin_hadiah: number;
+  stock_hadiah: number;
   status_active: boolean;
   is_online: boolean;
 }

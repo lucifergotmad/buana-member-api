@@ -47,6 +47,7 @@ export class AddHadiah
             kode_hadiah: request.kode_hadiah,
             nama_hadiah: request.nama_hadiah,
             poin_hadiah: request.poin_hadiah,
+            stock_hadiah: 0,
             status_active: true,
             created_by: this?.user?.user_id,
             is_online: false,

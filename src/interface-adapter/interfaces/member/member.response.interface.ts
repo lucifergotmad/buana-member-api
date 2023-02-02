@@ -1,4 +1,6 @@
-export interface IMemberResponse {
+import { IId } from "../id.interface";
+
+export interface IMemberResponse extends IId {
   kode_member: string;
   no_identitas: string;
   tanggal_daftar: string;

@@ -15,6 +15,9 @@ export class HadiahMongoEntity extends BaseMongoEntity<
   @Prop({ required: true })
   poin_hadiah: number;
 
+  @Prop({ required: true, default: 0 })
+  stock_hadiah: number;
+
   @Prop({ required: false })
   created_by?: string;
 

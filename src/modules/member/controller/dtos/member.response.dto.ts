@@ -3,10 +3,15 @@ import { MemberAgama } from "src/core/constants/app/member/agama.const";
 import { MemberJenisKelamin } from "src/core/constants/app/member/jenis-kelamin.const";
 import { MemberPendidikan } from "src/core/constants/app/member/pendidikan.const";
 import { MemberStatusMenikah } from "src/core/constants/app/member/status-menikah.const";
+import { IdResponseDTO } from "src/interface-adapter/dtos/id.response.dto";
 import { IMemberResponse } from "src/interface-adapter/interfaces/member/member.response.interface";
 
-export class MemberResponseDTO implements IMemberResponse {
+export class MemberResponseDTO
+  extends IdResponseDTO
+  implements IMemberResponse
+{
   constructor(props: IMemberResponse) {
+    super(props._id);
     this.kode_member = props.kode_member;
     this.no_identitas = props.no_identitas;
     this.tanggal_daftar = props.tanggal_daftar;
