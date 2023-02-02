@@ -46,6 +46,8 @@ export class MemberResponseDTO
     this.telp_rumah = props.telp_rumah;
     this.telp_kantor = props.telp_kantor;
     this.email = props.email;
+    this.terima_sms = props.terima_sms;
+    this.terima_email = props.terima_email;
   }
 
   @ApiProperty({ example: "PLG0000001" })
@@ -152,4 +154,10 @@ export class MemberResponseDTO
 
   @ApiProperty({ example: "lucifergotmad@gmail.com" })
   email?: string;
+
+  @ApiProperty({ example: false })
+  terima_sms?: boolean;
+
+  @ApiProperty({ example: false })
+  terima_email?: boolean;
 }

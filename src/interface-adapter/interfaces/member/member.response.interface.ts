@@ -35,4 +35,6 @@ export interface IMemberResponse extends IId {
   telp_rumah?: string;
   telp_kantor?: string;
   email?: string;
+  terima_sms?: boolean;
+  terima_email?: boolean;
 }
