@@ -23,14 +23,17 @@ export class UpdateUser
     super();
   }
 
-  async execute(data: UpdateUserRequestDTO & IId): Promise<MessageResponseDTO> {
+  async execute({
+    _id,
+    ...data
+  }: UpdateUserRequestDTO & IId): Promise<MessageResponseDTO> {
     const session = await this.utils.transaction.startTransaction();
     let result: IRepositoryResponse;
 
     try {
       await session.withTransaction(async () => {
         const payload: Partial<UserMongoEntity> = data;
-        result = await this.userRepository.update({ _id: data._id }, payload);
+        result = await this.userRepository.update({ _id }, payload);
       });
 
       return new MessageResponseDTO(`${result.n} documents updated`);

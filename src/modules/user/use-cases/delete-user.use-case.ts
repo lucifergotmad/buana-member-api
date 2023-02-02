@@ -5,14 +5,13 @@ import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { IRepositoryResponse } from "src/core/ports/interfaces/repository-response.interface";
 import { Utils } from "src/core/utils/utils.service";
 import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.dto";
-import { IMessage } from "src/interface-adapter/interfaces/message.interface";
 import { UserRepositoryPort } from "../database/user.repository.port";
 import { InjectUserRepository } from "../database/user.repository.provider";
 
 @Injectable()
 export class DeleteUser
   extends BaseUseCase
-  implements IUseCase<string, IMessage>
+  implements IUseCase<string, MessageResponseDTO>
 {
   constructor(
     @InjectUserRepository private userRepository: UserRepositoryPort,
@@ -21,7 +20,7 @@ export class DeleteUser
     super();
   }
 
-  public async execute(_id: string): Promise<IMessage> {
+  public async execute(_id: string): Promise<MessageResponseDTO> {
     const session = await this.utils.transaction.startTransaction();
     let result: IRepositoryResponse;
     try {
