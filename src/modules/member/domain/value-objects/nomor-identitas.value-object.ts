@@ -4,8 +4,8 @@ import { DomainPrimitive } from "src/core/base-classes/types/domain-primitive.ty
 import { Guard } from "src/core/logic/guard";
 
 export class NomorIdentitas extends ValueObject<string> {
-  constructor(value: string) {
-    super({ value });
+  constructor(value: string, optional = false) {
+    super({ value }, optional);
   }
 
   get value() {
@@ -13,8 +13,13 @@ export class NomorIdentitas extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>): void {
-    if (Guard.isInvalidNomorIdentitas(value)) {
-      throw new UnprocessableEntityException("Nomor identitas tidak valid!");
+    if (value) {
+      if (
+        Guard.isInvalidNomorIdentitas(value) &&
+        Guard.isInvalidNomorSIM(value)
+      ) {
+        throw new UnprocessableEntityException("Nomor identitas tidak valid!");
+      }
     }
   }
 }

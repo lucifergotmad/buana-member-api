@@ -70,12 +70,12 @@ export interface MemberFactoryProps
   > {
   no_identitas: string;
   jenis_kelamin: string;
-  email: string;
+  email?: string;
   status: string;
   no_hp: string;
-  emergency_number: string;
-  telp_rumah: string;
-  telp_kantor: string;
+  emergency_number?: string;
+  telp_rumah?: string;
+  telp_kantor?: string;
   agama: string;
   rt_rw: string;
   pendidikan: string;
@@ -90,16 +90,16 @@ export class MemberEntity extends AggregateRoot<IMemberProps> {
     return new MemberEntity({
       ...props,
       jenis_kelamin: new JenisKelamin(props.jenis_kelamin),
-      email: new Email(props.email),
-      status: new StatusMenikah(props.status),
+      email: new Email(props?.email, true),
+      status: new StatusMenikah(props?.status, true),
       no_identitas: new NomorIdentitas(props.no_identitas),
       no_hp: new NomorTelepon(props.no_hp),
-      emergency_number: new NomorTelepon(props.emergency_number),
-      telp_rumah: new TeleponTetap(props.telp_rumah),
-      telp_kantor: new TeleponTetap(props.telp_kantor),
-      agama: new Agama(props.agama),
+      emergency_number: new NomorTelepon(props?.emergency_number, true),
+      telp_rumah: new TeleponTetap(props?.telp_rumah, true),
+      telp_kantor: new TeleponTetap(props?.telp_kantor, true),
+      agama: new Agama(props?.agama, true),
       rt_rw: new RtRw(props.rt_rw),
-      pendidikan: new Pendidikan(props.pendidikan),
+      pendidikan: new Pendidikan(props?.pendidikan, true),
     });
   }
 }

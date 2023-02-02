@@ -17,9 +17,11 @@ import { UserMongoEntity } from "src/modules/user/database/model/user.mongo-enti
 import { CreateMember } from "../use-cases/create-member.use-case";
 import { DeleteMember } from "../use-cases/delete-member.use-case";
 import { FindMemberById } from "../use-cases/find-member-by-id.use-case";
+import { GenerateKodeMember } from "../use-cases/generate-kode-member.use-case";
 import { SearchMember } from "../use-cases/search-member.use-case";
 import { UpdateMember } from "../use-cases/update-member.use-case";
 import { CreateMemberRequestDTO } from "./dtos/create-member.request.dto";
+import { GenerateKodeMemberResponseDTO } from "./dtos/generate-kode-member.response";
 import { MemberResponseDTO } from "./dtos/member.response.dto";
 import { SearchMemberRequestDTO } from "./dtos/search-member.request.dto";
 import { UpdateMemberRequestDTO } from "./dtos/update-member.request.dto";
@@ -32,6 +34,7 @@ export class MemberController {
     private readonly deleteMember: DeleteMember,
     private readonly searchMember: SearchMember,
     private readonly findMemberById: FindMemberById,
+    private readonly generateKodeMember: GenerateKodeMember,
   ) {}
 
   @SecurePost()
@@ -54,7 +57,7 @@ export class MemberController {
     "alamat",
     "no_hp",
   ])
-  find(@Query() query: SearchMemberRequestDTO) {
+  find(@Query() query?: SearchMemberRequestDTO) {
     return this.searchMember.execute(query);
   }
 
@@ -63,6 +66,12 @@ export class MemberController {
   @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
   findOne(@Param("_id") _id: string) {
     return this.findMemberById.execute({ _id });
+  }
+
+  @SecureGet("generate/kode-member")
+  @ApiOkResponse({ type: GenerateKodeMemberResponseDTO })
+  async generate() {
+    return this.generateKodeMember.execute();
   }
 
   @SecurePut(":_id")

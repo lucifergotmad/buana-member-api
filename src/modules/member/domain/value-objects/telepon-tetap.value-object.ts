@@ -4,8 +4,8 @@ import { DomainPrimitive } from "src/core/base-classes/types/domain-primitive.ty
 import { Guard } from "src/core/logic/guard";
 
 export class TeleponTetap extends ValueObject<string> {
-  constructor(value: string) {
-    super({ value });
+  constructor(value: string, optional = false) {
+    super({ value }, optional);
   }
 
   get value() {
@@ -13,10 +13,12 @@ export class TeleponTetap extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>): void {
-    if (Guard.isNotLocalPhoneNumber(value)) {
-      throw new UnprocessableEntityException(
-        "Nomor telepon tetap tidak valid!",
-      );
+    if (value) {
+      if (Guard.isNotLocalPhoneNumber(value)) {
+        throw new UnprocessableEntityException(
+          "Nomor telepon tetap tidak valid!",
+        );
+      }
     }
   }
 }

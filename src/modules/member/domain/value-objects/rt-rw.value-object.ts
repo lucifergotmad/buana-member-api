@@ -4,8 +4,8 @@ import { DomainPrimitive } from "src/core/base-classes/types/domain-primitive.ty
 import { Guard } from "src/core/logic/guard";
 
 export class RtRw extends ValueObject<string> {
-  constructor(value: string) {
-    super({ value });
+  constructor(value: string, optional = false) {
+    super({ value }, optional);
   }
 
   get value() {
@@ -13,8 +13,10 @@ export class RtRw extends ValueObject<string> {
   }
 
   protected validate({ value }: DomainPrimitive<string>): void {
-    if (!Guard.isValidRTRW(value)) {
-      throw new UnprocessableEntityException("RT RW tidak valid!");
+    if (value) {
+      if (!Guard.isValidRTRW(value)) {
+        throw new UnprocessableEntityException("RT RW tidak valid!");
+      }
     }
   }
 }
