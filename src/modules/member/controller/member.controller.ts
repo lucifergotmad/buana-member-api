@@ -17,6 +17,7 @@ import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.
 import { UserMongoEntity } from "src/modules/user/database/model/user.mongo-entity";
 import { CreateMember } from "../use-cases/create-member.use-case";
 import { DeleteMember } from "../use-cases/delete-member.use-case";
+import { FindDetailMember } from "../use-cases/find-detail-member.use-case";
 import { FindMemberById } from "../use-cases/find-member-by-id.use-case";
 import { GenerateKodeMember } from "../use-cases/generate-kode-member.use-case";
 import { SearchMember } from "../use-cases/search-member.use-case";
@@ -36,6 +37,7 @@ export class MemberController {
     private readonly searchMember: SearchMember,
     private readonly findMemberById: FindMemberById,
     private readonly generateKodeMember: GenerateKodeMember,
+    private readonly findDetailMember: FindDetailMember,
   ) {}
 
   @SecurePost()
@@ -71,8 +73,15 @@ export class MemberController {
 
   @SecureGet("generate/kode-member")
   @ApiOkResponse({ type: GenerateKodeMemberResponseDTO })
-  async generate() {
+  generate() {
     return this.generateKodeMember.execute();
+  }
+
+  @SecureGet("detail/:kode_member")
+  @ApiOkResponse({ type: MemberResponseDTO })
+  @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
+  findDetail(@Param("kode_member") kode_member: string) {
+    return this.findDetailMember.execute(kode_member);
   }
 
   @SecurePut(":_id")

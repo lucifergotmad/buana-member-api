@@ -1,6 +1,7 @@
 import { Provider } from "@nestjs/common";
 import { CreateMember } from "./create-member.use-case";
 import { DeleteMember } from "./delete-member.use-case";
+import { FindDetailMember } from "./find-detail-member.use-case";
 import { FindMemberById } from "./find-member-by-id.use-case";
 import { GenerateKodeMember } from "./generate-kode-member.use-case";
 import { SearchMember } from "./search-member.use-case";
@@ -13,4 +14,5 @@ export const memberUseCaseProvider: Provider[] = [
   SearchMember,
   FindMemberById,
   GenerateKodeMember,
+  FindDetailMember,
 ];
