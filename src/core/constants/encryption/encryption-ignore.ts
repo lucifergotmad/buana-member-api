@@ -24,13 +24,20 @@ export const AdjustHadiahIgnore = [
   "kode_hadiah",
 ];
 
-export const TukarPoinIgnore = ["_id", "kode_member", "kode_hadiah", "tanggal"];
+export const TukarPoinIgnore = [
+  "_id",
+  "no_tukar_poin",
+  "kode_member",
+  "kode_hadiah",
+  "tanggal",
+];
 
 export const PoinMemberCardIgnore = [
   "_id",
   "no_referensi",
   "kode_member",
   "tanggal",
+  "kategori",
 ];
 
 export const StockHadiahCardIgnore = [

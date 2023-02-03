@@ -25,6 +25,9 @@ export class PoinMemberCardMongoEntity extends BaseMongoEntity<
   @Prop({ required: true })
   no_referensi: string;
 
+  @Prop({ required: true })
+  tanggal: string;
+
   @Prop({ required: true, enum: TipeTransaksi })
   kategori: string;
 

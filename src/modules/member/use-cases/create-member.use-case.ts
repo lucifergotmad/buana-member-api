@@ -5,6 +5,7 @@ import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { IRepositoryResponse } from "src/core/ports/interfaces/repository-response.interface";
 import { Utils } from "src/core/utils/utils.service";
 import { IdResponseDTO } from "src/interface-adapter/dtos/id.response.dto";
+import { CreatePoinMemberCard } from "src/modules/poin-member-card/use-cases/create-poin-member-card.use-case";
 import { CreateMemberRequestDTO } from "../controller/dtos/create-member.request.dto";
 import { MemberRepositoryPort } from "../database/member.repository.port";
 import { InjectMemberRepository } from "../database/member.repository.provider";
@@ -18,6 +19,7 @@ export class CreateMember
   constructor(
     @InjectMemberRepository
     private readonly memberRepository: MemberRepositoryPort,
+    private readonly createPoinMemberCard: CreatePoinMemberCard,
     private utils: Utils,
   ) {
     super();
@@ -43,8 +45,9 @@ export class CreateMember
             throw new BadRequestException("No identitas telah digunakan!");
           }
         } else {
+          const kodeMember = await this.utils.generator.generateKodeMember();
           const memberEntity = MemberEntity.create({
-            kode_member: await this.utils.generator.generateKodeMember(),
+            kode_member: kodeMember,
             no_identitas: request.no_identitas,
             tanggal_daftar: request.tanggal_daftar,
             tanggal_valid: request.tanggal_valid,

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { ClientSession } from "mongoose";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
@@ -30,29 +30,38 @@ export class CreatePoinMemberCard
         kode_member: request.kode_member,
       });
 
-      const awalPoin = latestPoin ? latestPoin.poin_akhir : 0;
+      const awalPoin = latestPoin ? latestPoin.poin_akhir : 50000;
       const akhirPoin = !request.poin_keluar
-        ? awalPoin - request.poin_keluar
-        : awalPoin + request.poin_masuk;
+        ? awalPoin + request.poin_masuk
+        : awalPoin - request.poin_keluar;
 
-      await this.poinMemberCardRepository.update(
-        {
-          kode_member: request.kode_member,
-        },
-        {
-          $inc: {
-            poin_awal:
-              !request.poin_keluar || request.poin_masuk
-                ? awalPoin
-                : awalPoin * -1,
-            poin_akhir:
-              !request.poin_keluar || request.poin_masuk
-                ? akhirPoin
-                : akhirPoin * -1,
+      if (akhirPoin < request.poin_keluar) {
+        throw new BadRequestException(
+          "Tidak bisa mengurangi poin member lebih dari semestinya!",
+        );
+      }
+
+      if (latestPoin) {
+        await this.poinMemberCardRepository.updateWithoutThrow(
+          {
+            kode_member: request.kode_member,
+            tanggal: { $gt: request.tanggal },
           },
-        },
-        session,
-      );
+          {
+            $inc: {
+              poin_awal:
+                !request.poin_keluar || request.poin_masuk
+                  ? request.poin_masuk
+                  : request.poin_keluar * -1,
+              poin_akhir:
+                !request.poin_keluar || request.poin_masuk
+                  ? request.poin_masuk
+                  : request.poin_keluar * -1,
+            },
+          },
+          session,
+        );
+      }
 
       const poinMemberCardEntity = PoinMemberCardEntity.create({
         kode_member: request.kode_member,

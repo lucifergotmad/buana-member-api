@@ -47,7 +47,7 @@ export class GeneratorUtil implements IGeneratorUtil {
 
   async generateNoTransaksi(type: string, date: string): Promise<string> {
     let noTransaksi: string;
-    let latestNoTransaksi: string;
+    let latestNoTransaksi: string | null;
 
     switch (type) {
       case TipeTransaksi.TambahStockHadiah:
@@ -76,7 +76,6 @@ export class GeneratorUtil implements IGeneratorUtil {
           "Invalid tipe transaksi when generate No Transaksi!",
         );
     }
-
     const prefix = this._generatePrefix(type);
 
     if (!latestNoTransaksi) {
@@ -86,7 +85,7 @@ export class GeneratorUtil implements IGeneratorUtil {
         latestNoTransaksi.substring(0, 11) +
         String(
           Number(latestNoTransaksi.slice(11, latestNoTransaksi.length)) + 1,
-        ).padStart(7, "0");
+        ).padStart(4, "0");
     }
 
     return noTransaksi;

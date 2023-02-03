@@ -6,6 +6,7 @@ import { PoinMemberCardMongoEntity } from "./model/poin-member-card.mongo-entity
 import { PoinMemberCardEntity } from "../domain/poin-member-card.entity";
 import { PoinMemberCardRepositoryPort } from "./poin-member-card.repository.port";
 import { PoinMemberCardMongoMapper } from "./model/poin-member-card.mongo-mapper";
+import { PoinMemberCardIgnore } from "src/core/constants/encryption/encryption-ignore";
 
 @Injectable()
 export class PoinMemberCardRepository
@@ -22,6 +23,7 @@ export class PoinMemberCardRepository
         PoinMemberCardEntity,
         PoinMemberCardMongoEntity,
       ),
+      PoinMemberCardIgnore,
     );
   }
 

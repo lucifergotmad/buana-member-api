@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { ClientSession } from "mongoose";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
@@ -36,21 +36,32 @@ export class CreateStockHadiahCard
         });
 
         const awalStock = latesStock ? latesStock.stock_akhir : 0;
-        const akhirStock = awalStock + hadiah.stock_masuk;
+        const akhirStock = !hadiah.stock_keluar
+          ? awalStock + hadiah.stock_masuk
+          : awalStock - hadiah.stock_keluar;
+
+        if (akhirStock < 0) {
+          throw new BadRequestException(
+            "Tidak bisa mengurangi stock lebih dari semestinya! ",
+          );
+        }
 
         if (latesStock) {
-          await this.stockHadiahCardRepository.update(
-            { kode_hadiah: hadiah.kode_hadiah },
+          await this.stockHadiahCardRepository.updateWithoutThrow(
+            {
+              kode_hadiah: hadiah.kode_hadiah,
+              tanggal: { $gt: request.tanggal },
+            },
             {
               $inc: {
                 stock_awal:
                   !hadiah.stock_keluar || hadiah.stock_masuk
-                    ? awalStock
-                    : awalStock * -1,
+                    ? hadiah.stock_masuk
+                    : hadiah.stock_keluar * -1,
                 stock_akhir:
                   !hadiah.stock_keluar || hadiah.stock_masuk
-                    ? akhirStock
-                    : akhirStock * -1,
+                    ? hadiah.stock_masuk
+                    : hadiah.stock_keluar * -1,
               },
             },
             session,
