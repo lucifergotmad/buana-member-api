@@ -50,6 +50,7 @@ export class AddStockHadiah
         });
 
         await this.tambahHadiahRepository.save(tambahHadiahEntity, session);
+
         const groupedHadiah = this._groupDetailHadiah(request.detail_hadiah);
 
         await this.createStockHadiahCard.injectDecodedToken(this?.user).execute(
@@ -78,14 +79,15 @@ export class AddStockHadiah
       if (!acc[value.kode_hadiah]) {
         acc[value.kode_hadiah] = {
           kode_hadiah: value.kode_hadiah,
-          stock_masuk: value.stock_masuk,
-          stock_keluar: value?.stock_keluar ?? 0,
+          stock_masuk: 0,
+          stock_keluar: 0,
         };
         groupedHadiah.push(acc[value.kode_hadiah]);
       }
 
       acc[value.kode_hadiah].stock_masuk += value.stock_masuk;
       acc[value.kode_hadiah].stock_keluar += value?.stock_keluar ?? 0;
+
       return acc;
     }, {});
 
