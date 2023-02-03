@@ -18,6 +18,7 @@ import { UpdateUser } from "src/modules/user/use-cases/update-user.use-case";
 import { UserMongoEntity } from "../database/model/user.mongo-entity";
 import { InjectUserRepository } from "../database/user.repository.provider";
 import { UserRepository } from "../database/user.repository.service";
+import { CheckUser } from "../use-cases/check-user.use-case";
 import { CreateUser } from "../use-cases/create-user.use-case";
 import { FindUserById } from "../use-cases/find-user-by-id.use-case";
 import { CreateUserRequestDTO } from "./dtos/create-user.request.dto";
@@ -31,6 +32,7 @@ export class UsersController {
     private readonly deleteUser: DeleteUser,
     private readonly updateUser: UpdateUser,
     private readonly findUserById: FindUserById,
+    private readonly checkUser: CheckUser,
     @InjectUserRepository
     private readonly userRepository: UserRepository,
   ) {}
@@ -58,6 +60,15 @@ export class UsersController {
   @ApiOkResponse({ type: UserReponseDTO })
   findOne(@Param("_id") _id: string) {
     return this.findUserById.execute(_id);
+  }
+
+  @SecureGet("check/:user_id")
+  @ApiBadRequestResponse({
+    description: "Bad Request (User Id are already in use)",
+  })
+  @ApiOkResponse({ type: MessageResponseDTO })
+  check(@Param("user_id") user_id: string) {
+    return this.checkUser.execute(user_id);
   }
 
   @SecurePut(":_id")
