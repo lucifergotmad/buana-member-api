@@ -17,6 +17,7 @@ import { MessageResponseDTO } from "src/interface-adapter/dtos/message.response.
 import { UserMongoEntity } from "src/modules/user/database/model/user.mongo-entity";
 import { AddHadiah } from "../use-cases/add-hadiah.use-case";
 import { DeleteHadiah } from "../use-cases/delete-hadiah.use-case";
+import { FindDetailHadiah } from "../use-cases/find-detail-hadiah.use-case";
 import { FindHadiahById } from "../use-cases/find-hadiah-by-id.use-case";
 import { SearchHadiah } from "../use-cases/search-hadiah.use-case";
 import { UpdateHadiah } from "../use-cases/update-hadiah.use-case";
@@ -33,6 +34,7 @@ export class HadiahController {
     private readonly deleteHadiah: DeleteHadiah,
     private readonly searchHadiah: SearchHadiah,
     private readonly findHadiahById: FindHadiahById,
+    private readonly findDetailHadiah: FindDetailHadiah,
   ) {}
 
   @SecurePost()
@@ -54,8 +56,16 @@ export class HadiahController {
 
   @SecureGet(":_id")
   @ApiOkResponse({ type: HadiahResponseDTO })
+  @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
   findOne(@Param("_id") _id: string) {
     return this.findHadiahById.execute({ _id });
+  }
+
+  @SecureGet("detail/:kode_hadiah")
+  @ApiOkResponse({ type: HadiahResponseDTO })
+  @ApiBadRequestResponse({ description: "Bad Request (Data Not Found!)" })
+  findDetail(@Param("kode_hadiah") kode_hadiah: string) {
+    return this.findDetailHadiah.execute(kode_hadiah);
   }
 
   @SecurePut(":_id")
