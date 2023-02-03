@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
+import { UserLevel } from "src/core/constants/app/user/user-level.const";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
 import { IRepositoryResponse } from "src/core/ports/interfaces/repository-response.interface";
 import { Utils } from "src/core/utils/utils.service";
@@ -28,6 +29,12 @@ export class CreateUser
       let result: IRepositoryResponse;
 
       await session.withTransaction(async () => {
+        if (request.level === UserLevel.Owner) {
+          throw new BadRequestException(
+            "Tidak dapat menambahkan user dengan level Owner",
+          );
+        }
+
         const userEntity = await UserEntity.create({
           user_id: request.user_id,
           user_name: request.user_name,
