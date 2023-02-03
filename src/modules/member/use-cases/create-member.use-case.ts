@@ -19,7 +19,6 @@ export class CreateMember
   constructor(
     @InjectMemberRepository
     private readonly memberRepository: MemberRepositoryPort,
-    private readonly createPoinMemberCard: CreatePoinMemberCard,
     private utils: Utils,
   ) {
     super();
