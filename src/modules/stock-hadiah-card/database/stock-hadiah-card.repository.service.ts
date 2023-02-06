@@ -7,7 +7,7 @@ import { StockHadiahCardEntity } from "../domain/stock-hadiah-card.entity";
 import { StockHadiahCardRepositoryPort } from "./stock-hadiah-card.repository.port";
 import { StockHadiahCardMongoMapper } from "./model/stock-hadiah-card.mongo-mapper";
 import { StockHadiahCardIgnore } from "src/core/constants/encryption/encryption-ignore";
-import { IHadiahReportResponse } from "src/interface-adapter/interfaces/reports/hadiah/hadiah-report.response.interface";
+import { IStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/stock-hadiah-report.response.interface";
 
 @Injectable()
 export class StockHadiahCardRepository
@@ -28,7 +28,7 @@ export class StockHadiahCardRepository
     );
   }
 
-  async reportStockHadiah(tanggal: string): Promise<IHadiahReportResponse[]> {
+  async reportStockHadiah(tanggal: string): Promise<IStockHadiahResponse[]> {
     const result = await this.StockHadiahCardModel.aggregate([
       {
         $match: {

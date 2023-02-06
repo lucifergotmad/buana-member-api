@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IHadiahReportResponse } from "src/interface-adapter/interfaces/reports/hadiah/hadiah-report.response.interface";
+import { IStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/stock-hadiah-report.response.interface";
 
-export class HadiahReportResponseDTO implements IHadiahReportResponse {
-  constructor(props: IHadiahReportResponse) {
+export class StockHadiahReportResponseDTO implements IStockHadiahResponse {
+  constructor(props: IStockHadiahResponse) {
     this.kode_hadiah = props.kode_hadiah;
     this.nama_hadiah = props.nama_hadiah;
     this.poin = props.poin;
