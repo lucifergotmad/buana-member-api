@@ -9,7 +9,7 @@ import { StockHadiahReportRequestDTO } from "../controller/dtos/stock-hadiah-rep
 import { StockHadiahReportResponseDTO } from "../controller/dtos/stock-hadiah-report.response.dto";
 
 @Injectable()
-export class HadiahReport
+export class StockHadiahReport
   extends BaseUseCase
   implements
     IUseCase<StockHadiahReportRequestDTO, StockHadiahReportResponseDTO[]>

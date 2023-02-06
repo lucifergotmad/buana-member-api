@@ -1,4 +1,4 @@
 import { Provider } from "@nestjs/common";
-import { HadiahReport } from "./hadiah-report.use-case";
+import { StockHadiahReport } from "./stock-hadiah-report.use-case";
 
-export const hadiahReportUseCaseProvider: Provider[] = [HadiahReport];
+export const hadiahReportUseCaseProvider: Provider[] = [StockHadiahReport];
