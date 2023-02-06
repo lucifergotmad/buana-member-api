@@ -19,7 +19,7 @@ export class MemberReportController {
 
   @SecureGet()
   @APIQueryProperty(["status_member", "sort_by"])
-  @ApiOkResponse({ type: ReportDataMemberResponseDTO })
+  @ApiOkResponse({ type: ReportDataMemberResponseDTO, isArray: true })
   @ApiBadRequestResponse({ description: "Query tidak valid!" })
   report(@Query() query: ReportDataMemberRequestDTO) {
     return this.reportDataMember.execute(query);

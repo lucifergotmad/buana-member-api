@@ -7,6 +7,7 @@ import { StockHadiahCardEntity } from "../domain/stock-hadiah-card.entity";
 import { StockHadiahCardRepositoryPort } from "./stock-hadiah-card.repository.port";
 import { StockHadiahCardMongoMapper } from "./model/stock-hadiah-card.mongo-mapper";
 import { StockHadiahCardIgnore } from "src/core/constants/encryption/encryption-ignore";
+import { IHadiahReportResponse } from "src/interface-adapter/interfaces/reports/hadiah/hadiah-report.response.interface";
 
 @Injectable()
 export class StockHadiahCardRepository
@@ -27,8 +28,48 @@ export class StockHadiahCardRepository
     );
   }
 
-  // fill me with beautiful method!
-  __init__(): void {
-    //replace this lonely method!
+  async reportStockHadiah(tanggal: string): Promise<IHadiahReportResponse[]> {
+    const result = await this.StockHadiahCardModel.aggregate([
+      {
+        $match: {
+          tanggal: {
+            $lte: tanggal,
+          },
+        },
+      },
+      {
+        $sort: { tanggal: -1, _id: -1 },
+      },
+      {
+        $group: {
+          _id: "$kode_hadiah",
+          qty: {
+            $first: "$stock_akhir",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "tm_hadiah",
+          localField: "_id",
+          foreignField: "kode_hadiah",
+          as: "hadiah",
+        },
+      },
+      {
+        $unwind: "$hadiah",
+      },
+      {
+        $project: {
+          _id: 0,
+          kode_hadiah: "$_id",
+          nama_hadiah: "$hadiah.nama_hadiah",
+          poin: "$hadiah.poin_hadiah",
+          qty: "$qty",
+        },
+      },
+    ]);
+
+    return this.encryptor.doDecrypt(result, this.ignore);
   }
 }
