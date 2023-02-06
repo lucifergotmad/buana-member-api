@@ -3,14 +3,16 @@ import { AppAuthModule } from "./app/app-auth.module";
 import { HadiahModule } from "./hadiah/hadiah.module";
 import { MemberModule } from "./member/member.module";
 import { PoinMemberCardModule } from "./poin-member-card/poin-member-card.module";
+import { ReportModule } from "./reports/report.module";
 import { StockHadiahCardModule } from "./stock-hadiah-card/stock-hadiah-card.module";
 import { TambahHadiahModule } from "./tambah-hadiah/tambah-hadiah.module";
 import { TukarPoinModule } from "./tukar-poin/tukar-poin.module";
 import { UserModule } from "./user/user.module";
 
-const systemProviders = [
-  AppAuthModule,
-  UserModule,
+const systemProviders = [AppAuthModule, UserModule];
+
+export const resourceProviders = [
+  ...systemProviders,
   MemberModule,
   HadiahModule,
   TambahHadiahModule,
@@ -18,6 +20,5 @@ const systemProviders = [
   TukarPoinModule,
   PoinMemberCardModule,
   StockHadiahCardModule,
+  ReportModule,
 ];
-
-export const resourceProviders = [...systemProviders];
