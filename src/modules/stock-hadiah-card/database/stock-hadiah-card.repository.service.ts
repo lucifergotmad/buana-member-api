@@ -8,6 +8,8 @@ import { StockHadiahCardRepositoryPort } from "./stock-hadiah-card.repository.po
 import { StockHadiahCardMongoMapper } from "./model/stock-hadiah-card.mongo-mapper";
 import { StockHadiahCardIgnore } from "src/core/constants/encryption/encryption-ignore";
 import { IStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/stock-hadiah-report.response.interface";
+import { IHistoryStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/history-stock-hadiah.response.interface";
+import { HistoryStockHadiahRequestDTO } from "src/modules/reports/hadiah/controller/dtos/history-stock-hadiah.request.dto";
 
 @Injectable()
 export class StockHadiahCardRepository
@@ -26,6 +28,70 @@ export class StockHadiahCardRepository
       ),
       StockHadiahCardIgnore,
     );
+  }
+
+  async reportHistoryStockHadiah({
+    start_date,
+    end_date,
+    kode_hadiah,
+  }: HistoryStockHadiahRequestDTO): Promise<IHistoryStockHadiahResponse[]> {
+    const result = await this.StockHadiahCardModel.aggregate([
+      {
+        $match: {
+          tanggal: {
+            $gte: start_date,
+            $lte: end_date,
+          },
+          kode_hadiah: this._generateOption(kode_hadiah),
+        },
+      },
+      {
+        $lookup: {
+          from: "tt_tukar_poins",
+          localField: "no_referensi",
+          foreignField: "no_tukar_poin",
+          as: "tukar_poin",
+        },
+      },
+      {
+        $unwind: {
+          path: "$tukar_poin",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          tanggal: "$tanggal",
+          no_transaksi: "$no_referensi",
+          jenis_transaksi: "$kategori",
+          kode_hadiah: "$kode_hadiah",
+          kode_member: "$tukar_poin.kode_member",
+          qty: {
+            $cond: {
+              if: {
+                $gt: ["$stock_keluar", 0],
+              },
+              then: {
+                $multiply: ["$stock_keluar", -1],
+              },
+              else: "$stock_masuk",
+            },
+          },
+        },
+      },
+    ]);
+
+    return this.encryptor.doDecrypt(result, [
+      ...this.ignore,
+      "no_transaksi",
+      "jenis_transaksi",
+      "kode_member",
+    ]);
+  }
+
+  private _generateOption(kode_hadiah?: string) {
+    return kode_hadiah ? { kode_hadiah } : {};
   }
 
   async reportStockHadiah(tanggal: string): Promise<IStockHadiahResponse[]> {
