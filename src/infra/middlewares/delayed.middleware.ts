@@ -6,6 +6,6 @@ export class DelayedMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     setTimeout(() => {
       next();
-    }, 3000);
+    }, 1000);
   }
 }

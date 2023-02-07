@@ -84,7 +84,7 @@ export class PoinMemberCardRepository
           _id: 0,
           tanggal: "$tanggal",
           kode_member: "$kode_member",
-          nama_lengkap: "$member.nama_lengkap",
+          nama_member: "$member.nama_lengkap",
           nama_hadiah: "$hadiah.nama_hadiah",
           poin_awal: "$poin_awal",
           poin_tukar: "$poin_keluar",
