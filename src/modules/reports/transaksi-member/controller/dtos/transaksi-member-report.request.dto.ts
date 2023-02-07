@@ -1,12 +1,11 @@
 import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.const";
 import { IsOptionalString } from "src/core/decorators/dto-decorators/optional-string.decorator";
-import { IsRequiredString } from "src/core/decorators/dto-decorators/required-string.decorator";
 
 export class TransaksiMemberReportRequestDTO {
-  @IsRequiredString({ example: "2022-01-01" })
+  @IsOptionalString({ example: "2022-01-01" })
   start_date: string;
 
-  @IsRequiredString({ example: "2022-01-01" })
+  @IsOptionalString({ example: "2022-01-01" })
   end_date: string;
 
   @IsOptionalString({
