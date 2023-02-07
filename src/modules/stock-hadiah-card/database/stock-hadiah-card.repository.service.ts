@@ -45,7 +45,7 @@ export class StockHadiahCardRepository
             $gte: start_date,
             $lte: end_date,
           },
-          kode_hadiah: this._generateOption(kode_hadiah),
+          ...this._generateOption(kode_hadiah),
         },
       },
       {
@@ -63,12 +63,24 @@ export class StockHadiahCardRepository
         },
       },
       {
+        $lookup: {
+          from: "tm_hadiahs",
+          localField: "kode_hadiah",
+          foreignField: "kode_hadiah",
+          as: "hadiah",
+        },
+      },
+      {
+        $unwind: "$hadiah",
+      },
+      {
         $project: {
           _id: 0,
           tanggal: "$tanggal",
           no_transaksi: "$no_referensi",
           jenis_transaksi: "$kategori",
           kode_hadiah: "$kode_hadiah",
+          nama_hadiah: "$hadiah.nama_hadiah",
           kode_member: "$tukar_poin.kode_member",
           qty: {
             $cond: {

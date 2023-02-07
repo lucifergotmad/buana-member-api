@@ -31,7 +31,7 @@ export class HistoryStockHadiahResponseDTO
   nama_hadiah: string;
 
   @ApiProperty({ example: "PLG0000001" })
-  kode_member: string;
+  kode_member?: string;
 
   @ApiProperty({ example: 10 })
   qty: number;

@@ -4,6 +4,6 @@ export interface IHistoryStockHadiahResponse {
   jenis_transaksi: string;
   kode_hadiah: string;
   nama_hadiah: string;
-  kode_member: string;
+  kode_member?: string;
   qty: number;
 }
