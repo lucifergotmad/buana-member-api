@@ -4,7 +4,6 @@ import { databaseProviders } from "./infra/database/database.providers";
 import { UtilsModule } from "./core/utils/utils.module";
 import { AuthModule } from "./infra/auth/auth.module";
 import { ResourceModule } from "./modules/resource.module";
-import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
   imports: [

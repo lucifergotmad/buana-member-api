@@ -9,5 +9,5 @@ export class HistoryStockHadiahRequestDTO {
   end_date: string;
 
   @IsOptionalString({ example: "MGC" })
-  kode_hadiah: string;
+  kode_hadiah?: string;
 }
