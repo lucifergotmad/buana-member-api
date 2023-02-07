@@ -119,7 +119,7 @@ export class StockHadiahCardRepository
       },
       {
         $lookup: {
-          from: "tm_hadiah",
+          from: "tm_hadiahs",
           localField: "_id",
           foreignField: "kode_hadiah",
           as: "hadiah",
