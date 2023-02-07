@@ -20,7 +20,10 @@ export class FindDetailHadiah
 
   async execute(kode_hadiah?: string): Promise<HadiahResponseDTO> {
     try {
-      const result = await this.hadiahRepository.findOne({ kode_hadiah });
+      const result = await this.hadiahRepository.findOneOrThrow(
+        { kode_hadiah, status_active: true },
+        "Hadiah tidak dapat ditemukan!",
+      );
       return new HadiahResponseDTO(result);
     } catch (error) {
       throw new ResponseException(error.message, error.status, error.trace);

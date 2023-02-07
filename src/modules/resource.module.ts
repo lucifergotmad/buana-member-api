@@ -9,7 +9,6 @@ import { resourceProviders } from "./resource.provider";
 })
 export class ResourceModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(DecryptorMiddleware).forRoutes("*");
-    consumer.apply(DelayedMiddleware).forRoutes("v1/reports/*");
+    consumer.apply(DecryptorMiddleware, DelayedMiddleware).forRoutes("*");
   }
 }
