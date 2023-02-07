@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { DecryptorMiddleware } from "src/infra/middlewares/decryptor.middleware";
+import { DelayedMiddleware } from "src/infra/middlewares/delayed.middleware";
 import { resourceProviders } from "./resource.provider";
 
 @Module({
@@ -9,5 +10,6 @@ import { resourceProviders } from "./resource.provider";
 export class ResourceModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(DecryptorMiddleware).forRoutes("*");
+    consumer.apply(DelayedMiddleware).forRoutes("v1/reports/*");
   }
 }
