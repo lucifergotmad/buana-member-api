@@ -10,6 +10,9 @@ import { StockHadiahCardIgnore } from "src/core/constants/encryption/encryption-
 import { IStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/stock-hadiah-report.response.interface";
 import { IHistoryStockHadiahResponse } from "src/interface-adapter/interfaces/reports/hadiah/history-stock-hadiah.response.interface";
 import { HistoryStockHadiahRequestDTO } from "src/modules/reports/hadiah/controller/dtos/history-stock-hadiah.request.dto";
+import { AdjustHadiahReportRequestDTO } from "src/modules/reports/adjust-hadiah/controller/dtos/adjust-hadiah-report.request.dto";
+import { IAdjustHadiahReportResponse } from "src/interface-adapter/interfaces/reports/adjust-hadiah/adjust-hadiah-report.response.interface";
+import { TipeTransaksi } from "src/core/constants/app/transaksi/tipe-transaksi.const";
 
 @Injectable()
 export class StockHadiahCardRepository
@@ -132,6 +135,47 @@ export class StockHadiahCardRepository
           nama_hadiah: "$hadiah.nama_hadiah",
           poin: "$hadiah.poin_hadiah",
           qty: "$qty",
+        },
+      },
+    ]);
+
+    return this.encryptor.doDecrypt(result, this.ignore);
+  }
+
+  async reportAdjustHadiah({
+    start_date,
+    end_date,
+  }: AdjustHadiahReportRequestDTO): Promise<IAdjustHadiahReportResponse[]> {
+    const result = await this.StockHadiahCardModel.aggregate([
+      {
+        $match: {
+          tanggal: {
+            $gte: start_date,
+            $lte: end_date,
+          },
+          kategori: TipeTransaksi.AdjustStockHadiah,
+        },
+      },
+      {
+        $lookup: {
+          from: "tm_hadiahs",
+          localField: "kode_hadiah",
+          foreignField: "kode_hadiah",
+          as: "hadiah",
+        },
+      },
+      {
+        $unwind: "$hadiah",
+      },
+      {
+        $project: {
+          _id: 0,
+          tanggal: "$tanggal",
+          kode_hadiah: "$kode_hadiah",
+          nama_hadiah: "$hadiah.nama_hadiah",
+          stock_awal: "$stock_awal",
+          stock_akhir: "$stock_akhir",
+          created_by: "$created_by",
         },
       },
     ]);
