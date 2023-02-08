@@ -7,7 +7,7 @@ import { MemberEntity } from "../domain/member.entity";
 import { MemberRepositoryPort } from "./member.repository.port";
 import { MemberMongoMapper } from "./model/member.mongo-mapper";
 import { MemberIgnore } from "src/core/constants/encryption/encryption-ignore";
-import { ISortBy } from "../types/sort-by.interface";
+import { ISortBy } from "../domain/types/sort-by.interface";
 
 @Injectable()
 export class MemberRepository

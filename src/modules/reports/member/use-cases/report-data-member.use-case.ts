@@ -9,7 +9,7 @@ import { Utils } from "src/core/utils/utils.service";
 import { MemberRepositoryPort } from "src/modules/member/database/member.repository.port";
 import { InjectMemberRepository } from "src/modules/member/database/member.repository.provider";
 import { MemberMongoEntity } from "src/modules/member/database/model/member.mongo-entity";
-import { ISortBy } from "src/modules/member/types/sort-by.interface";
+import { ISortBy } from "src/modules/member/domain/types/sort-by.interface";
 import { ReportDataMemberRequestDTO } from "../controller/dtos/report-data-member.request.dto";
 import { ReportDataMemberResponseDTO } from "../controller/dtos/report-data-member.response.dto";
 
