@@ -20,7 +20,10 @@ export class FindDetailMember
 
   async execute(kode_member?: string): Promise<MemberResponseDTO> {
     try {
-      const result = await this.memberRepository.findOne({ kode_member });
+      const result = await this.memberRepository.findOneOrThrow(
+        { kode_member },
+        "Member tidak dapat ditemukan!",
+      );
       return new MemberResponseDTO(result);
     } catch (error) {
       throw new ResponseException(error.message, error.status, error.trace);
