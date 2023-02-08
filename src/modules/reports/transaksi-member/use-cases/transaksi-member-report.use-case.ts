@@ -37,8 +37,8 @@ export class TransaksiMemberReport
           $and: [
             this._generateDateOpt(
               request.tipe,
-              request.start_date,
-              request.end_date,
+              request?.start_date,
+              request?.end_date,
             ),
             this._generateKategoriOpt(request?.kategori),
             this._generateKodeMemberOpt(request?.kode_member),
