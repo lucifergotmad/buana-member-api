@@ -153,6 +153,6 @@ export class PoinMemberCardRepository
       },
     ]);
 
-    return this.encryptor.doDecrypt(result, this.ignore);
+    return this.encryptor.doDecrypt(result, [...this.ignore, "deskripsi"]);
   }
 }

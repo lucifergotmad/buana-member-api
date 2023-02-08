@@ -13,7 +13,13 @@ export class TransaksiMemberReportController {
 
   @SecureGet()
   @ApiOkResponse({ type: TransaksiMemberReportResponseDTO, isArray: true })
-  @APIQueryProperty(["start_date", "end_date", "kategori", "kode_member"])
+  @APIQueryProperty([
+    "start_date",
+    "end_date",
+    "kategori",
+    "kode_member",
+    "tipe",
+  ])
   report(@Query() query: TransaksiMemberReportRequestDTO) {
     return this.transaksiMemberReport.execute(query);
   }

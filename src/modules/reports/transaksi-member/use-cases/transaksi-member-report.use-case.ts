@@ -3,6 +3,7 @@ import { FilterQuery } from "mongoose";
 import { BaseUseCase } from "src/core/base-classes/infra/use-case.base";
 import { IUseCase } from "src/core/base-classes/interfaces/use-case.interface";
 import { ResponseException } from "src/core/exceptions/response.http-exception";
+import { Utils } from "src/core/utils/utils.service";
 import { ITransaksiMemberReportResponse } from "src/interface-adapter/interfaces/reports/transaksi-member/transaksi-member-report.response.interface";
 import { PoinMemberCardMongoEntity } from "src/modules/poin-member-card/database/model/poin-member-card.mongo-entity";
 import { PoinMemberCardRepositoryPort } from "src/modules/poin-member-card/database/poin-member-card.repository.port";
@@ -22,6 +23,7 @@ export class TransaksiMemberReport
   constructor(
     @InjectPoinMemberCardRepository
     private readonly poinMemberCardRepository: PoinMemberCardRepositoryPort,
+    private readonly utils: Utils,
   ) {
     super();
   }
@@ -33,7 +35,11 @@ export class TransaksiMemberReport
       const results = await this.poinMemberCardRepository.reportTransaksiMember(
         {
           $and: [
-            this._generateDateOpt(request.start_date, request.end_date),
+            this._generateDateOpt(
+              request.tipe,
+              request.start_date,
+              request.end_date,
+            ),
             this._generateKategoriOpt(request?.kategori),
             this._generateKodeMemberOpt(request?.kode_member),
           ],
@@ -50,12 +56,13 @@ export class TransaksiMemberReport
   }
 
   private _generateDateOpt(
-    start_date: string,
-    end_date: string,
+    tipe: string,
+    start_date?: string,
+    end_date?: string,
   ): FilterQuery<PoinMemberCardMongoEntity> {
-    return start_date && end_date
+    return tipe === "Harian" && start_date && end_date
       ? { tanggal: { $gte: start_date, $lte: end_date } }
-      : {};
+      : { tanggal: { $lt: this.utils.date.getToday() } };
   }
 
   private _generateKategoriOpt(kategori?: string) {
