@@ -33,7 +33,7 @@ export class UpdateUser
     try {
       await session.withTransaction(async () => {
         const payload: Partial<UserMongoEntity> = data;
-        result = await this.userRepository.update({ _id }, payload);
+        result = await this.userRepository.update({ _id }, payload, session);
       });
 
       return new MessageResponseDTO(`${result.n} documents updated`);
