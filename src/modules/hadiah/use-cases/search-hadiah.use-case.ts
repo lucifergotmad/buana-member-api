@@ -23,6 +23,8 @@ export class SearchHadiah
   async execute(
     request?: SearchHadiahRequestDTO,
   ): Promise<HadiahResponseDTO[]> {
+    console.log("1");
+
     try {
       const result = await this.hadiahRepository.findBy({
         $and: [
